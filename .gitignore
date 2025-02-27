@@ -1,0 +1,7 @@
+#env file
+/Server/.env
+/client/.env.local
+
+#node modules
+/Server/node_modules
+/client/node_modules
