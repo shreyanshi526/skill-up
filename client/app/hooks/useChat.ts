@@ -11,19 +11,22 @@ interface Message {
 export const useChat = () => {
     const queryClient = useQueryClient();
 
-    const { data: messages, isLoading } = useQuery({
-        queryKey: ['see-all-Mentors'],
-        queryFn: async () => {
-            const { data } = await coreApi.post('/v1/chatsee-all-Mentors');
-            return data.messages;
-        }
-    });
+    const useGetAllMentors = (id: string) => {
+        return useQuery({
+            queryKey: ['see-all-Mentors', id],
+            queryFn: async () => {
+                const { data } = await coreApi.post('/v1/see-all-Mentors', { id });
+                return data.users;
+            },
+            enabled: !!id,
+        });
+    };
 
     const sendMessage = useMutation({
         mutationFn: async (content: string) => {
             const { data } = await coreApi.post('/api/chat', {
                 content,
-                sender: 'currentUser', // Replace with actual user management
+                sender: 'currentUser',
             });
             return data;
         },
@@ -35,8 +38,7 @@ export const useChat = () => {
     });
 
     return {
-        messages,
-        isLoading,
+        useGetAllMentors,
         sendMessage: sendMessage.mutate,
         isSending: sendMessage.isPending,
     };

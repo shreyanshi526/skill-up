@@ -3,5 +3,6 @@
 /client/.env.local
 
 #node modules
+node_modules
 /Server/node_modules
 /client/node_modules

@@ -1,11 +1,10 @@
 import axios, { AxiosResponse } from 'axios';
 
 const coreApi = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000/api',
+    baseURL: process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:7001/api',
     headers: {
         'Content-Type': 'application/json',
     },
-    withCredentials: true,
 });
 
 // Add request interceptor
@@ -37,22 +36,22 @@ coreApi.interceptors.response.use(
 );
 
 // Generic API methods using interceptors
-const get = async <T>(url: string, params?: any): Promise<T> => {
+export const get = async <T>(url: string, params?: any): Promise<T> => {
     const response: AxiosResponse<T> = await coreApi.get(url, { params });
     return response.data;
 };
 
-const post = async <T>(url: string, data?: any): Promise<T> => {
+export const post = async <T>(url: string, data?: any): Promise<T> => {
     const response: AxiosResponse<T> = await coreApi.post(url, data);
     return response.data;
 };
 
-const put = async <T>(url: string, data?: any): Promise<T> => {
+export const put = async <T>(url: string, data?: any): Promise<T> => {
     const response: AxiosResponse<T> = await coreApi.put(url, data);
     return response.data;
 };
 
-const del = async <T>(url: string): Promise<T> => {
+export const del = async <T>(url: string): Promise<T> => {
     const response: AxiosResponse<T> = await coreApi.delete(url);
     return response.data;
 };

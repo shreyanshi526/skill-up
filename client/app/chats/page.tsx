@@ -1,8 +1,5 @@
-"use client"
-import Image from "next/image";
-import Link from "next/link";
+"use client";
 import React, { FC, useState } from "react";
-import { BiSearch } from "react-icons/bi";
 import Header from "../components/Header";
 import Heading from "../utils/Heading";
 import { useChat } from "../hooks/useChat";
@@ -10,12 +7,20 @@ import { useChat } from "../hooks/useChat";
 type Props = Record<string, never>;
 
 const Page: FC<Props> = () => {
+    const {
+        useGetAllMentors,
+    } = useChat();
     const [open, setOpen] = useState(false);
     const [activeItem, setActiveItem] = useState(0);
     const [route, setRoute] = useState("Login");
-    const [userId, setUserId] = useState("");
-    const { messages, isLoading, sendMessage } = useChat();
+    const [userId, setUserId] = useState<string>("");
 
+    // Fetch mentors based on userId
+    const { data: mentors, isLoading } = useGetAllMentors(userId);
+
+    const handleChatClick = (mentor:any) => {
+    console.log(mentor,'first')
+    }
     return (
         <div className="h-screen flex flex-col">
             <Heading
@@ -23,7 +28,6 @@ const Page: FC<Props> = () => {
                 description="Learn Your Way!"
                 keywords="MERN,MEAN,REDUX"
             />
-            {/* we can call this heading comjponent on every page to change the name of page acrrodingl ex- from signup to welcome etc*/}
             <Header
                 open={open}
                 setOpen={setOpen}
@@ -46,26 +50,32 @@ const Page: FC<Props> = () => {
 
                     {/* Mentors List */}
                     <div className="flex-1 overflow-y-auto">
-                        {isLoading ? (
-                            <div className="p-4 text-center">Loading...</div>
-                        ) : messages?.map((mentor) => (
-                            <div key={mentor.id} className="p-4 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer border-b dark:border-gray-700">
-                                <div className="flex items-center space-x-3">
-                                    <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center">
-                                        <span className="text-white font-bold">
-                                            {mentor.sender?.charAt(0) || 'M'}
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <h3 className="font-medium dark:text-white">{mentor.sender}</h3>
-                                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                                            Active
-                                        </p>
-                                    </div>
-                                </div>
+            {isLoading ? (
+                <div className="p-4 text-center">Loading...</div>
+            ) : mentors?.length > 0 ? (
+                mentors.map((mentor: any) => (
+                    <div key={mentor._id} onClick={handleChatClick(mentor)} className="p-4 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer border-b dark:border-gray-700">
+                        <div className="flex items-center space-x-3">
+                            <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center">
+                                <span className="text-white font-bold">
+                                    {mentor.username?.charAt(0) || 'M'}
+                                </span>
                             </div>
-                        ))}
+                            <div>
+                                <h3 className="font-medium dark:text-white">{mentor.username}</h3>
+                                <p className="text-sm text-gray-500 dark:text-gray-400">
+                                    Active
+                                </p>
+                            </div>
+                        </div>
                     </div>
+                ))
+            ) : (
+                <div className="p-4 text-center text-gray-500 dark:text-gray-400">
+                    No mentors available.
+                </div>
+            )}
+        </div>
                 </div>
 
                 {/* Chat Area */}
