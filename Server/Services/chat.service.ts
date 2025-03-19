@@ -17,7 +17,25 @@ export const addMentor = async (body: any, res: any) => {
 };
 
 export const getChatRecords = async (userId: string, res: any) => {
-    const chatRecords = await ChatHistory.findOne({ userId: new mongoose.Types.ObjectId(userId) });
+    const chatRecords = await ChatHistory.findOne({ userId: new mongoose.Types.ObjectId(userId) })
+        .populate({
+            path: 'chats',
+            select: 'isGroup groupName chatId updatedAt',
+            populate: [
+                { path: 'participants', select: 'username' },
+                {
+                    path: 'messages',
+                    options: {
+                        sort: { createdAt: -1 },
+                        limit: 1
+                    },
+                    populate: { path: 'senderId', select: 'username' },
+                    select: ' message readBy'
+                },  
+            ]
+        })
+        .populate({ path: 'userId', select: 'username' })
+        .exec();
     if (!chatRecords) {
         return res.status(404).json({ message: "No Chat Record." });
     }
@@ -26,7 +44,7 @@ export const getChatRecords = async (userId: string, res: any) => {
 
 export const GetAllMessages = async (chatId: string, res: any) => {
     const messageRecords = await Message.find({ chatId: chatId }).sort({ timestamp: 1 });
-    
+
     if (!messageRecords) {
         return res.status(404).json({ message: "No Chat Record." });
     }
@@ -41,16 +59,14 @@ export const getRecommendedMentors = async (currentUserId: string, res: Response
     const users = await Users.aggregate([
         { $match: { _id: { $ne: currentUserId } } }, // Exclude current user
         {
-          $group: {
-            _id: null, // Single object output
-            in_network: { $push: { $cond: { if: { $ifNull: ["$chatHistory", false] }, then: "$$ROOT", else: "$$REMOVE" } } },
-            outside_network: { $push: { $cond: { if: { $ifNull: ["$chatHistory", false] }, then: "$$REMOVE", else: "$$ROOT" } } }
-          }
+            $group: {
+                _id: null,
+                in_network: { $push: { $cond: { if: { $ifNull: ["$chatHistory", false] }, then: "$$ROOT", else: "$$REMOVE" } } },
+                outside_network: { $push: { $cond: { if: { $ifNull: ["$chatHistory", false] }, then: "$$REMOVE", else: "$$ROOT" } } }
+            }
         },
-      ]);
-      
-
-    return users;
+    ]);
+    return users.length > 0 ? users[0] : { in_network: [], outside_network: [] };
 };
 
 
@@ -58,10 +74,10 @@ export const startChat = async (data: { senderId: any, receiverId: any }, res: R
     const session = await mongoose.startSession();
     session.startTransaction();
 
-    try { 
+    try {
         const { senderId, receiverId } = data;
 
-        if (!senderId || !receiverId) { 
+        if (!senderId || !receiverId) {
             await session.abortTransaction();
             session.endSession();
             return res.status(400).json({ message: "Both senderId and receiverId are required." });
@@ -70,14 +86,14 @@ export const startChat = async (data: { senderId: any, receiverId: any }, res: R
         const sender = await Users.findById(senderId).session(session);
         const receiver = await Users.findById(receiverId).session(session);
 
-        if (!sender || !receiver) { 
+        if (!sender || !receiver) {
             await session.abortTransaction();
             session.endSession();
             return res.status(404).json({ message: "Sender or receiver not found." });
         }
 
         let chat = await Chat.findOne({ participants: { $all: [senderId, receiverId] } }).session(session);
-        if (!chat) { 
+        if (!chat) {
             chat = (await Chat.create([{ participants: [senderId, receiverId], messages: [] }], { session }))[0];
 
             const senderChatHistory = await ChatHistory.findOneAndUpdate(
@@ -92,33 +108,33 @@ export const startChat = async (data: { senderId: any, receiverId: any }, res: R
                 { upsert: true, new: true, session }
             );
 
-            await Users.findByIdAndUpdate(senderId, {$push:{chatHistory:senderChatHistory._id}},{new:true,session});
-            await Users.findByIdAndUpdate(receiverId,{$push:{chatHistory : receiverChatHistory._id}},{new:true, session});
+            await Users.findByIdAndUpdate(senderId, { $push: { chatHistory: senderChatHistory._id } }, { new: true, session });
+            await Users.findByIdAndUpdate(receiverId, { $push: { chatHistory: receiverChatHistory._id } }, { new: true, session });
 
             await session.commitTransaction();
             session.endSession();
 
-            return res.status(201).json({ 
-                chat: {
-                    ...chat.toObject(),
-                    senderName: sender.username,
-                    receiverName: receiver.username
-                }, 
-                message: "Chat created successfully." 
-            });
-        } else {
-            await session.abortTransaction();
-            session.endSession();
-            return res.status(200).json({ 
+            return res.status(201).json({
                 chat: {
                     ...chat.toObject(),
                     senderName: sender.username,
                     receiverName: receiver.username
                 },
-                message: "Chat already exists." 
+                message: "Chat created successfully."
+            });
+        } else {
+            await session.abortTransaction();
+            session.endSession();
+            return res.status(200).json({
+                chat: {
+                    ...chat.toObject(),
+                    senderName: sender.username,
+                    receiverName: receiver.username
+                },
+                message: "Chat already exists."
             });
         }
-    } catch (error) { 
+    } catch (error) {
         await session.abortTransaction();
         session.endSession();
         console.error("Error starting chat:", error);

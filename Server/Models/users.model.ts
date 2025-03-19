@@ -12,9 +12,10 @@ export interface IUsers extends Document {
 const UserSchema: Schema = new Schema(
   {
     username: { type: String, required: true, unique: true, trim: true },
-    email: { type: String, required: true},
+    email: { type: String, required: true },
     password: { type: String, required: true },
-    chatHistory: { type: mongoose.Schema.Types.ObjectId, ref: 'ChatHistory' }
+    chatHistory: { type: mongoose.Schema.Types.ObjectId, ref: 'ChatHistory' },
+    in_network: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   },
   {
     timestamps: true,

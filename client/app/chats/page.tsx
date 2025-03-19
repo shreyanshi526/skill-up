@@ -18,9 +18,9 @@ const Page: FC<Props> = () => {
     // Fetch mentors based on userId
     const { data: mentors, isLoading } = useGetAllMentors(userId);
 
-    const handleChatClick = (mentor:any) => {
-    console.log(mentor,'first')
+    const handleChatClick = (mentor: any) => {
     }
+    const yes = 1
     return (
         <div className="h-screen flex flex-col">
             <Heading
@@ -40,7 +40,7 @@ const Page: FC<Props> = () => {
                 <div className="w-[300px] bg-white dark:bg-gray-900 border-r dark:border-gray-700 flex flex-col">
                     {/* User ID Input */}
                     <div className="p-4 border-b dark:border-gray-700">
-                        <input 
+                        <input
                             type="text"
                             placeholder="Enter User ID"
                             className="w-full p-2 rounded-lg border dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -50,32 +50,22 @@ const Page: FC<Props> = () => {
 
                     {/* Mentors List */}
                     <div className="flex-1 overflow-y-auto">
-            {isLoading ? (
-                <div className="p-4 text-center">Loading...</div>
-            ) : mentors?.length > 0 ? (
-                mentors.map((mentor: any) => (
-                    <div key={mentor._id} onClick={handleChatClick(mentor)} className="p-4 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer border-b dark:border-gray-700">
-                        <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center">
-                                <span className="text-white font-bold">
-                                    {mentor.username?.charAt(0) || 'M'}
-                                </span>
-                            </div>
-                            <div>
-                                <h3 className="font-medium dark:text-white">{mentor.username}</h3>
-                                <p className="text-sm text-gray-500 dark:text-gray-400">
-                                    Active
-                                </p>
+                        <div className="p-4 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer border-b dark:border-gray-700">
+                            <div className="flex items-center space-x-3">
+                                <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center">
+                                    <span className="text-white font-bold">
+                                        {'M'}
+                                    </span>
+                                </div>
+                                <div>
+                                    <h3 className="font-medium dark:text-white">{'MIA'}</h3>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                                        Active
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                ))
-            ) : (
-                <div className="p-4 text-center text-gray-500 dark:text-gray-400">
-                    No mentors available.
-                </div>
-            )}
-        </div>
                 </div>
 
                 {/* Chat Area */}

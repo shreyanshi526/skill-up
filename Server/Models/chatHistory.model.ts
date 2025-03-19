@@ -18,7 +18,7 @@ const generateChatId = (): string => {
 const ChatHistorySchema: Schema = new Schema(
     {
         Id: { type: String, unique: true, index: true, default:generateChatId},
-        userId: { type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true },
+        userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
         chats: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Chat' }]
     },
     { timestamps: true }

@@ -20,9 +20,9 @@ const MessageSchema: Schema = new Schema(
         messageType: { type: String, enum: ['text', 'image', 'video', 'file'], default: 'text' },
         mediaUrl: { type: String, default: null },
         timestamp: { type: Date, default: Date.now },
-        readBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], // Who read the message
+        readBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
         edited: { type: Boolean, default: false },
-        deletedFor: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] // Soft delete
+        deletedFor: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
     },
     { timestamps: true }
 );

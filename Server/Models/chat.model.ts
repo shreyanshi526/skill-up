@@ -20,7 +20,7 @@ const generateChatId = (): string => {
 const ChatSchema: Schema = new Schema(
   {
     chatId: { type: String, unique: true, index: true, generateChatId},
-    participants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true }],
+    participants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }],
     isGroup: { type: Boolean, default: false },
     groupName: { type: String, default: null },
     messages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }]
