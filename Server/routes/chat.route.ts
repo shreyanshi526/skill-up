@@ -4,7 +4,7 @@ import { ListRecommendedMentors,Chats,AddMentors, onSendMessage, onGetChatsRecor
 const chatRouter = express.Router();
 
 chatRouter.post("/see-all-Mentors",ListRecommendedMentors);
-chatRouter.get("/getChatRecords",onGetChatsRecords);
+chatRouter.post("/getChatRecords",onGetChatsRecords);
 chatRouter.post("/createMentor",AddMentors);
 chatRouter.post("/chats",Chats);
 chatRouter.post("/sendMessage",onSendMessage);

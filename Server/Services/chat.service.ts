@@ -18,11 +18,16 @@ export const addMentor = async (body: any, res: any) => {
 
 export const getChatRecords = async (userId: string, res: any) => {
     const chatRecords = await ChatHistory.findOne({ userId: new mongoose.Types.ObjectId(userId) })
+        .populate({ path: 'userId', select: 'username' })
         .populate({
             path: 'chats',
             select: 'isGroup groupName chatId updatedAt',
             populate: [
-                { path: 'participants', select: 'username' },
+                { 
+                    path: 'participants', 
+                    select: 'username',
+                    match: { _id: { $ne: userId } } 
+                },
                 {
                     path: 'messages',
                     options: {
@@ -31,10 +36,9 @@ export const getChatRecords = async (userId: string, res: any) => {
                     },
                     populate: { path: 'senderId', select: 'username' },
                     select: ' message readBy'
-                },  
+                },
             ]
         })
-        .populate({ path: 'userId', select: 'username' })
         .exec();
     if (!chatRecords) {
         return res.status(404).json({ message: "No Chat Record." });
