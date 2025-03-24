@@ -4,6 +4,7 @@ import './globals.css';
 import { Poppins, Josefin_Sans } from 'next/font/google';
 import { ThemeProvider } from './utils/theme-provider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { SocketProvider } from './context/SocketContext';
 import { useState } from 'react';
 
 const poppins = Poppins({
@@ -28,11 +29,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable} ${josefin.variable} !bg-white bg-no-repeat dark:bg-gradient-to-b dark:from-gray-900 dark:to-black duration-300`}>
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-            {children}
-          </ThemeProvider>
-        </QueryClientProvider>
+        <SocketProvider>
+          <QueryClientProvider client={queryClient}>
+            <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+              {children}
+            </ThemeProvider>
+          </QueryClientProvider>
+        </SocketProvider>
       </body>
     </html>
   );

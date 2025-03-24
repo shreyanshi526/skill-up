@@ -19,10 +19,10 @@ const httpServer = http.createServer(app);
 // Creating socket server
 const io = new SocketIOServer(httpServer, {
     cors: {
-        origin: '*',  // Allow all origins for testing
+        origin: 'http://localhost:3000',  // Allow all origins for testing
         methods: ['GET', 'POST']
     },
-    transports: ['websocket'],  // Force the server to use WebSocket only
+    transports: ['websocket','polling'],  // Force the server to use WebSocket only
 });
 
 

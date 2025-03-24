@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import coreApi from '../utils/CoreApiInstance';
 
 interface Message {
@@ -9,7 +9,6 @@ interface Message {
 }
 
 export const useChat = () => {
-    const queryClient = useQueryClient();
 
     const getChatsRecords = (id:string) => {
         return useQuery({
