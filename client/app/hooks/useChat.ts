@@ -26,7 +26,7 @@ export const useChat = () => {
         return useQuery({
             queryKey:['see-all-messages',chatId],
             queryFn: async () => {
-                const {data} = await coreApi.post('/v1/getChatRecords',{chatId});
+                const {data} = await coreApi.post('/v1/seeMessages',{chatId});
                 return data?.chatRecords;
             },
             enabled: !!chatId,
@@ -44,26 +44,9 @@ export const useChat = () => {
         });
     };
 
-    const sendMessage = useMutation({
-        mutationFn: async (content: string) => {
-            const { data } = await coreApi.post('/api/chat', {
-                content,
-                sender: 'currentUser',
-            });
-            return data;
-        },
-        onSuccess: (newMessage) => {
-            queryClient.setQueryData<Message[]>(['chat-messages'], 
-                (old = []) => [...old, newMessage]
-            );
-        },
-    });
-
     return {
         getChatsRecords,
         getAllMessages,
         useGetAllMentors,
-        sendMessage: sendMessage.mutate,
-        isSending: sendMessage.isPending,
     };
 };

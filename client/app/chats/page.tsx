@@ -14,29 +14,46 @@ const Page: FC<Props> = () => {
     const [userId, setUserId] = useState<string>("");
     const [currentOpenChatId, setCurrentOpenChatId] = useState<string>("");
     const [currentOpenChatDetails, setCurrentOpenChatDetails] = useState("");
+    const [newMessage, setNewMessage] = useState("");
 
     // Fetch mentors based on userId
     const { data: mentors, isLoading } = getChatsRecords(userId);
+    const { data: messageDetails } = getAllMessages(currentOpenChatId);
+    
 
     const handleChatClick = (chatId: string) => {
         setCurrentOpenChatId(chatId);
-        const { data } = getAllMessages(chatId);
-        setCurrentOpenChatDetails(data);
+        setCurrentOpenChatDetails(messageDetails);
     };
-
-    const getChatData = (firstChatId:string) => {
-        const { data } = getAllMessages(firstChatId);
-        return data;
-    }
 
     useEffect(() => {
         if (mentors?.chats?.length && userId && currentOpenChatId === "") {
             const firstChatId = mentors?.chats?.[0]?.chatId;
             setCurrentOpenChatId(firstChatId);
-            const data = getChatData(firstChatId);
-            setCurrentOpenChatDetails(data);
         }
     }, [mentors, currentOpenChatId, userId]);
+
+    const handleSendMessage = () => {
+        if (!newMessage.trim()) return;
+
+        const newMessageObj = {
+            _id: Date.now().toString(),
+            chatId: currentOpenChatId,
+            senderId: {
+                _id: userId,
+                username: "You"
+            },
+            message: newMessage,
+            messageType: "text",
+            timestamp: new Date().toISOString(),
+        };
+
+        // Add the new message to the end of existing messages
+        if (messageDetails) {
+            messageDetails.push(newMessageObj);
+        }
+        setNewMessage("");
+    };
 
     return (
         <div className="h-screen flex flex-col">
@@ -94,7 +111,64 @@ const Page: FC<Props> = () => {
 
                 {/* Chat Area */}
                 <div className="flex-1 flex flex-col">
-                    {/* Chat header and messages remain unchanged */}
+                    {/* Chat Header */}
+                    <div className="p-4 border-b dark:border-gray-700 bg-white dark:bg-gray-900">
+                        <h2 className="text-xl font-semibold dark:text-white">
+                            {mentors?.chats?.find((chat: any) => chat.chatId === currentOpenChatId)?.participants?.find((p: any) => p._id !== userId)?.username || "Select a chat"}
+                        </h2>
+                    </div>
+
+                    {/* Messages Area */}
+                    <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                        {messageDetails?.length > 0 ? (
+                            messageDetails.map((message: any, index: number) => (
+                                <div
+                                    key={index}
+                                    className={`flex ${message.senderId._id === userId ? 'justify-end' : 'justify-start'}`}
+                                >
+                                    <div className={`w-auto ${message.senderId._id === userId ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700 dark:text-white'} rounded-lg p-3`}>
+                                        <div className="flex justify-end items-center mb-2 gap-x-10 ">
+                                            <span className="text-sm font-semibold">
+                                                {message.senderId._id === userId ? 'You' : message.senderId.username}
+                                            </span>
+                                            <span className="text-xs opacity-70">
+                                                {new Date(message.timestamp).toLocaleTimeString()}
+                                            </span>
+                                        </div>
+                                        <div className="break-words">
+                                            {message.message}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="h-full flex items-center justify-center">
+                                <p className="text-gray-500 dark:text-gray-400 text-center">
+                                    No messages yet. Start a conversation! 👋
+                                </p>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Message Input */}
+                    <div className="p-4 border-t dark:border-gray-700 bg-white dark:bg-gray-900">
+                        <div className="flex space-x-2">
+                            <input
+                                type="text"
+                                value={newMessage}
+                                onChange={(e) => setNewMessage(e.target.value)}
+                                placeholder="Type a message..."
+                                className="flex-1 p-2 rounded-lg border dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                            />
+                            <button 
+                                onClick={handleSendMessage}
+                                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            >
+                                Send
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

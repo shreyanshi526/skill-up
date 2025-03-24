@@ -47,7 +47,9 @@ export const getChatRecords = async (userId: string, res: any) => {
 };
 
 export const GetAllMessages = async (chatId: string, res: any) => {
-    const messageRecords = await Message.find({ chatId: chatId }).sort({ timestamp: 1 });
+    const messageRecords = await Message.find({ chatId: chatId })
+    .populate({ path: 'senderId', select: 'username' })
+    .sort({ timestamp: 1 });
 
     if (!messageRecords) {
         return res.status(404).json({ message: "No Chat Record." });
