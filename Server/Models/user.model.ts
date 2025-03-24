@@ -20,7 +20,7 @@ export interface IUser extends Document {
     comparePassword: (password: string) => Promise<boolean>;
     SignAccessToken : ()=>string;
     SignRefreshToken : () => string;
-
+    chatHistory: mongoose.Types.ObjectId;
 }
 const userSchema: Schema<IUser> = new mongoose.Schema({
     name: {
@@ -61,7 +61,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
             courseId: String,
         }
     ],
-
+    chatHistory: { type: mongoose.Schema.Types.ObjectId, ref: 'ChatHistory' },
 
 }, { timestamps: true });
 

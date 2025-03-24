@@ -1,31 +1,31 @@
 import Chat from "../Models/chat.model";
-import Users from "../Models/users.model";
+import Users from "../Models/user.model";
 import Message from "../Models/message.model";
 import ChatHistory from "../Models/chatHistory.model";
 import { Response } from "express";
 import mongoose from "mongoose";
 
 export const addMentor = async (body: any, res: any) => {
-    const { username, email, password } = body;
+    const { name, email, password } = body;
     const user = await Users.findOne({ email })
 
     if (user) {
         return res.status(400).json({ message: "User present." });
     }
-    const createdUser = await Users.create({ username, email, password });
+    const createdUser = await Users.create({ name, email, password });
     return createdUser;
 };
 
 export const getChatRecords = async (userId: string, res: any) => {
     const chatRecords = await ChatHistory.findOne({ userId: new mongoose.Types.ObjectId(userId) })
-        .populate({ path: 'userId', select: 'username' })
+        .populate({ path: 'userId', select: 'name' })
         .populate({
             path: 'chats',
             select: 'isGroup groupName chatId updatedAt',
             populate: [
                 { 
                     path: 'participants', 
-                    select: 'username',
+                    select: 'name',
                     match: { _id: { $ne: userId } } 
                 },
                 {
@@ -34,7 +34,7 @@ export const getChatRecords = async (userId: string, res: any) => {
                         sort: { createdAt: -1 },
                         limit: 1
                     },
-                    populate: { path: 'senderId', select: 'username' },
+                    populate: { path: 'senderId', select: 'name' },
                     select: ' message readBy'
                 },
             ]
@@ -48,7 +48,7 @@ export const getChatRecords = async (userId: string, res: any) => {
 
 export const GetAllMessages = async (chatId: string, res: any) => {
     const messageRecords = await Message.find({ chatId: chatId })
-    .populate({ path: 'senderId', select: 'username' })
+    .populate({ path: 'senderId', select: 'name' })
     .sort({ timestamp: 1 });
 
     if (!messageRecords) {
@@ -123,8 +123,8 @@ export const startChat = async (data: { senderId: any, receiverId: any }, res: R
             return res.status(201).json({
                 chat: {
                     ...chat.toObject(),
-                    senderName: sender.username,
-                    receiverName: receiver.username
+                    senderName: sender.name,
+                    receiverName: receiver.name
                 },
                 message: "Chat created successfully."
             });
@@ -134,8 +134,8 @@ export const startChat = async (data: { senderId: any, receiverId: any }, res: R
             return res.status(200).json({
                 chat: {
                     ...chat.toObject(),
-                    senderName: sender.username,
-                    receiverName: receiver.username
+                    senderName: sender.name,
+                    receiverName: receiver.name
                 },
                 message: "Chat already exists."
             });

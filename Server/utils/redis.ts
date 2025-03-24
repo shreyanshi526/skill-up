@@ -9,5 +9,4 @@ const redisClient = () =>{
     throw new Error ('REDIS not CONNECTED')
 }
 
-// export const redis = new Redis()
-export const redisClient()
+export const redis = new Redis(redisClient());

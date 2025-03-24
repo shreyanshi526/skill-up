@@ -19,7 +19,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   const [socketClient, setSocketClient] = useState<SocketClient | null>(null);
 
   useEffect(() => {
-    const client = new SocketClient('http://localhost:7000','chat');  // Create a SocketClient instance
+    const client = new SocketClient('http://localhost:7001','chat');  // Create a SocketClient instance
     setSocketClient(client);
 
     return () => client.disconnect();  // Disconnect socket when component unmounts

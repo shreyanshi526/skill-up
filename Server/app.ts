@@ -21,8 +21,8 @@ app.use(cors({
 }));
 
 //roytes  
-// app.use("/api/v1", userRouter)
-// app.use("/api/v1", courseRouter)
+app.use("/api/v1", userRouter)
+app.use("/api/v1", courseRouter)
 app.use("/api/v1", chatRouter)
 
 //testing api :

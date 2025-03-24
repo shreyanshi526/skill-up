@@ -76,6 +76,30 @@ const Page: FC<Props> = () => {
     setNewMessage("");
   };
 
+  // Helper function to determine if the message is from the current user
+  const isCurrentUser = (message: any, userId: string) => {
+    if (typeof message.senderId === 'string') {
+      // WebSocket message structure
+      return message.senderId === userId;
+    } else if (typeof message.senderId === 'object') {
+      // API message structure
+      return message.senderId?._id === userId;
+    }
+    return false;
+  };
+
+  // Helper function to get the username
+  const getUsername = (message: any, userId: string) => {
+    if (typeof message.senderId === 'string') {
+      // WebSocket message structure
+      return message.senderId === userId ? 'You' : 'Other'; // Return 'You' only if it's the current user
+    } else if (typeof message.senderId === 'object') {
+      // API message structure
+      return isCurrentUser(message, userId) ? 'You' : message.senderId?.username;
+    }
+    return 'Unknown';
+  };
+
   return (
     <div className="h-screen flex flex-col">
       <Heading title="Elearning" description="Learn Your Way!" keywords="MERN,MEAN,REDUX" />
@@ -142,14 +166,14 @@ const Page: FC<Props> = () => {
           {/* Messages Area */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {currentOpenChatDetails?.map((message: any, index: number) => (
-              <div key={index} className={`flex ${message?.senderId === userId  || message?.senderId?._id === userId ? "justify-end" : "justify-start"}`}>
+              <div key={index} className={`flex ${isCurrentUser(message, userId) ? "justify-end" : "justify-start"}`}>
                 <div
                   className={`w-auto ${
-                    message?.senderId === userId  || message?.senderId?._id === userId ? "bg-blue-500 text-white" : "bg-gray-200 dark:bg-gray-700 dark:text-white"
+                    isCurrentUser(message, userId) ? "bg-blue-500 text-white" : "bg-gray-200 dark:bg-gray-700 dark:text-white"
                   } rounded-lg p-3`}
                 >
                   <span className="text-sm font-semibold">
-                    {message?.senderId === userId  || message?.senderId?._id === userId ? "You" : message.senderId.username}
+                    {getUsername(message, userId)}
                   </span>
                   <p>{message.message}</p>
                 </div>
