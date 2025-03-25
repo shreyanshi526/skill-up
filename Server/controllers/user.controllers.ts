@@ -148,8 +148,6 @@ export const loginUser = CatchAsyncError(async (req: Request, res: Response, nex
       }
 
       sendToken(user, 201, res);
-
-
    }
    catch (error: any) {
       return next(new ErrorHandler(error.message, 400));

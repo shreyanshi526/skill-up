@@ -1,0 +1,313 @@
+{
+	"info": {
+		"_postman_id": "57812c8d-64bf-45ce-93c7-6772a92a2ada",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39816674"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "register user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"shreyanshi\",\r\n    \"password\" : \"shreyanshi123$$R\",\r\n    \"email\" : \"msaanvi55@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_S}}/api/v1/registration",
+							"host": [
+								"{{base_url_S}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"registration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "activate-user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"activation_token\" : \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJzaHJleWFuc2hpIiwiZW1haWwiOiJtc2FhbnZpNTVAZ21haWwuY29tIiwicGFzc3dvcmQiOiJzaHJleWFuc2hpMTIzJCRSIn0sImFjdGl2YXRpb25Db2RlIjoiNDU2NyIsImlhdCI6MTc0MjkwMTYwNiwiZXhwIjoxNzQyOTAxOTA2fQ.Wux7c80HCMLHSUB3r2a-ieEqiNP8_xdcE3I3Kp_pONI\",\r\n    \"activation_code\" : \"4567\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_S}}/api/v1/activate-user",
+							"host": [
+								"{{base_url_S}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"activate-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\" : \"shreyanshi123$$R\",\r\n    \"email\" : \"msaanvi55@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_S}}/api/v1/login",
+							"host": [
+								"{{base_url_S}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\" : \"shreyanshi123$$R\",\r\n    \"email\" : \"msaanvi55@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_S}}/api/v1/login",
+							"host": [
+								"{{base_url_S}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "see mentors",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"67b2f95208dae74490985138\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7000/api/v1/see-all-Mentors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"api",
+						"v1",
+						"see-all-Mentors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getChatRecords",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"67af1177c213624787b13c51\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/getChatRecords",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"getChatRecords"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "see all message",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"chatId\": \"cRFOB\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/seeMessages",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"seeMessages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add mentor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"shreyasad\",\r\n    \"email\": \"shsr@gad.v\",\r\n    \"password\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/createMentor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"createMentor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "start chat",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"senderId\": \"67adb195d2f5f58dee8da854\",\r\n  \"receiverId\": \"67aed389803264f6af25b26d\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/chats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"chats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send Message",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"senderId\": \"67adb195d2f5f58dee8da854\",\r\n  \"receiverId\": \"67aed389803264f6af25b26d\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/chats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"chats"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

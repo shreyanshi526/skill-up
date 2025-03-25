@@ -5,13 +5,11 @@ import { IUser } from "../Models/user.model";
 declare global {
     namespace Express {
        export interface Request {
-            user?: any;
+            user?: IUser;
             io?:Server;
         }
         export interface Response {
-            user ? : any;
+            user ? : IUser;
         }
     }
 }
-
-export {}
