@@ -3,7 +3,6 @@ import express from "express";
 export const app = express();
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import { request } from "http";
 import { ErrorMiddleware } from "./midlleware/error";
 import userRouter from "./routes/user.routes";
 import courseRouter from "./routes/course.route";
@@ -17,7 +16,8 @@ app.use(cookieParser());
 
 //cors
 app.use(cors({
-    origin : process.env.ORIGIN
+    origin : process.env.ORIGIN,
+    credentials:true
 }));
 
 //roytes  

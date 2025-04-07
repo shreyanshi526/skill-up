@@ -1,13 +1,13 @@
 import  express  from "express";
-import { ListRecommendedMentors,Chats,AddMentors, onSendMessage, onGetChatsRecords,onGetAllMessages } from "../controllers/chat.controller";
+import { ListRecommendedMentors,Chats, onSendMessage, onGetChatsRecords,onGetAllMessages } from "../controllers/chat.controller";
+import { isAuthenticated } from "../midlleware/auth";
 
 const chatRouter = express.Router();
 
-chatRouter.post("/see-all-Mentors",ListRecommendedMentors);
-chatRouter.post("/getChatRecords",onGetChatsRecords);
-chatRouter.post("/createMentor",AddMentors);
-chatRouter.post("/chats",Chats);
-chatRouter.post("/sendMessage",onSendMessage);
-chatRouter.post('/seeMessages',onGetAllMessages);
+chatRouter.post("/see-all-Mentors",isAuthenticated,ListRecommendedMentors);
+chatRouter.post("/getChatRecords",isAuthenticated,onGetChatsRecords);
+chatRouter.post("/chats",isAuthenticated,Chats);
+chatRouter.post("/sendMessage",isAuthenticated,onSendMessage);
+chatRouter.post('/seeMessages',isAuthenticated,onGetAllMessages);
 
 export default chatRouter;

@@ -3,7 +3,7 @@ import { io, Socket } from 'socket.io-client';
 class SocketClient {
     private readonly socket: Socket;
 
-    constructor(serverUrl: string = 'http://localhost:7000', type: 'chat' | 'group') {
+    constructor(serverUrl: string = 'http://localhost:7001', type: 'chat' | 'group') {
         this.socket = io(serverUrl, {
             transports: ['websocket'],
         });

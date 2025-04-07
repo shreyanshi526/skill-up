@@ -77,7 +77,7 @@ userSchema.pre<IUser>('save', async function (next) {
 //sign our access token -  whem user log in craete a access token ,if reload or acess to itsself so simple compare the token
 userSchema.methods.SignAccessToken = function (){
     return jwt.sign({id: this._id},process.env.ACCESS_TOKEN  || ' ',{
-        expiresIn:"5m",
+        expiresIn:"60m",
     });
 }
 

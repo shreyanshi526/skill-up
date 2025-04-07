@@ -7,10 +7,7 @@ import { redis } from "../utils/redis";
 
 // authenticated user
 export const isAuthenticated = CatchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
-    // console.log("Request Cookies:", req.cookies);
     const access_token = req.cookies.access_token;
-    //console.log("access_token : ", access_token);
-
     if (!access_token) {
         return next(new ErrorHandler("please login to access this resource", 400));
     }
@@ -33,7 +30,7 @@ export const isAuthenticated = CatchAsyncError(async (req: Request, res: Respons
 // validate user role -  who can access this resrource
 export const authorizeRoles = (...roles: string[]) => {
     return (req: Request, res: Response, next: NextFunction) => {
-        if (!roles.includes(req.user?.role || '')) { return next(new ErrorHandler(`Role: ${req.user?.role} is not allowed to access this resource`, 403)); }
+        if (!roles.includes(req.user?.role ?? '')) { return next(new ErrorHandler(`Role: ${req.user?.role} is not allowed to access this resource`, 403)); }
         next();
     }
 }

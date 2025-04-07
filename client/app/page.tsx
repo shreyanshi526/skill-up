@@ -2,12 +2,16 @@
 import React,{FC,useState} from  "react";
 import Heading from "./utils/Heading";
 import Header from './components/Header';
+import { useAuth } from '../app/hooks/auth/useAuth';
+
 interface Props {}
 
 const Page : FC<Props> = (props) => {
   const [open,setOpen] = useState(false);
   const[activeItem,setActiveItem] = useState(0);
   const[route,setRoute] = useState("Login")
+  const {user} = useAuth();
+
   return (
     <div>
       <Heading
@@ -23,6 +27,11 @@ const Page : FC<Props> = (props) => {
        setRoute={setRoute}
        route={route}
       />
+      <div className="flex min-h-screen items-center justify-center">
+      <h1 className="text-3xl font-bold">
+        {user ? `Welcome ${user.name}! 👋` : 'Loading...'}
+      </h1>
+    </div>
      </div>
   )
 }

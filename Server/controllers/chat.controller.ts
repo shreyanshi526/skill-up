@@ -1,31 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 import ErrorHandler from "../utils/Errorhandler";
 import { CatchAsyncError } from "../midlleware/catchAsyncError";
-import { getRecommendedMentors, startChat, addMentor,createMessage, getChatRecords, GetAllMessages } from "../Services/chat.service";
+import { getRecommendedMentors, startChat,createMessage, getChatRecords, GetAllMessages } from "../Services/chat.service";
 import { io } from "../server";
 
-export const AddMentors = CatchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const { username,email,password } = req.body;
-
-        if (!username || !email ||!password) {
-            return res.status(400).json({ message: "required fields" });
-        }
-
-        const addedMentor = await addMentor(req.body,res);
-
-        res.status(200).json({
-            success: true,
-            users: addedMentor
-        });
-    } catch (error: any) {
-        return next(new ErrorHandler(error.message, 500));
-    }
-});
 
 export const ListRecommendedMentors = CatchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { id: currentUserId } = req.body;
+        const currentUserId = req.user?._id;
 
         if (!currentUserId) {
             return res.status(400).json({ message: "User Id is required." });
@@ -44,7 +26,8 @@ export const ListRecommendedMentors = CatchAsyncError(async (req: Request, res: 
 
 export const Chats = CatchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { senderId, receiverId } = req.body;
+        const { receiverId } = req.body;
+        const senderId = req.user?._id;
         if (!senderId || !receiverId) {
             return res.status(400).json({ message: "Both senderId and receiverId are required." });
         }
@@ -58,13 +41,14 @@ export const Chats = CatchAsyncError(async (req: Request, res: Response, next: N
 
 export const onGetChatsRecords = CatchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { userId } = req.body;
+        const userId = req.user?._id;
         if (!userId) {
             return res.status(400).json({ message: "UserID is required." });
         }
         const chatRecords = await getChatRecords(userId, res);
         res.status(201).json({
             success : "true",
+            message:"Chat Records fetched successfully",
             chatRecords
         })
 
@@ -92,7 +76,9 @@ export const onGetAllMessages = CatchAsyncError(async (req: Request, res: Respon
 
 export const onSendMessage = CatchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { chatId,senderId,receiverId,message  } = req.body;
+        const { chatId,receiverId,message  } = req.body;
+        const senderId = req.user?._id;
+        console.log('im here')
         if (!senderId || !chatId || !message) {
             return res.status(400).json({ message: "Required all fields." });
         }

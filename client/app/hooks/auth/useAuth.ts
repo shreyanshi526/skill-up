@@ -2,6 +2,9 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import coreApi from '../../utils/CoreApiInstance';
 import Cookies from 'js-cookie';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 
 interface RegisterUser {
     name: string;
@@ -21,6 +24,30 @@ interface LoginParams {
 
 export const useAuth = () => {
     const router = useRouter();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const getUser = async () => {
+            try {
+                const { data } = await coreApi.get('/v1/me', { 
+                    withCredentials: true,
+                });
+                localStorage.setItem("user",JSON.stringify(data.user) )
+                dispatch({
+                    type: 'SET_USER',
+                    payload: data.user,
+                });
+            } catch (error) {
+                console.error('Auth error:', error);
+            }
+        };
+
+        getUser();
+    }, [dispatch]);
+
+    // Get user from redux store
+    const user = JSON.parse(localStorage.getItem("user") || '{}');
+console.log(user.name);
 
     // Register User
     const register = useMutation({
@@ -49,11 +76,7 @@ export const useAuth = () => {
             sessionStorage.removeItem('activation_token');
             return response.data;
         },
-        onSuccess: (data) => {
-            // Store tokens in cookies using js-cookie
-            Cookies.set('accessToken', data.accessToken, { secure: true, sameSite: 'strict' });
-            Cookies.set('refreshToken', data.refreshToken, { secure: true, sameSite: 'strict' });
-            
+        onSuccess: (data) => {   
             // Redirect to home page
             router.push('/');
         },
@@ -69,10 +92,6 @@ export const useAuth = () => {
             return response.data;
         },
         onSuccess: (data) => {
-            // Store tokens in cookies using js-cookie
-            Cookies.set('accessToken', data.accessToken, { secure: true, sameSite: 'strict' });
-            Cookies.set('refreshToken', data.refreshToken, { secure: true, sameSite: 'strict' });
-            
             // Redirect to home page
             router.push('/');
         },
@@ -82,5 +101,6 @@ export const useAuth = () => {
         register, 
         verifyUser,
         login,
+        user,
     };
 };

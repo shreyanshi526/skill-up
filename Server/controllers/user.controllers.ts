@@ -4,7 +4,6 @@ import userModel, { IUser } from "../Models/user.model";
 import ErrorHandler from "../utils/Errorhandler";
 import sendMail from "../utils/sendMail";
 import { CatchAsyncError } from "../midlleware/catchAsyncError";
-import { constants } from "buffer";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken"
 import ejs from "ejs"
 import path from "path"
@@ -75,7 +74,7 @@ export const createActivationToken = (user: any): IActivationToken => {
    const token = jwt.sign({
       user, activationCode
    }, process.env.ACTIVATION_SECRET as Secret, {
-      expiresIn: '5m',
+      expiresIn: '60m',
    });
 
    return { token, activationCode }
@@ -211,7 +210,7 @@ export const updateAccessToken = CatchAsyncError(async (req: Request, res: Respo
 
       const user = JSON.parse(session);
       const accessToken = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN as string, {
-         expiresIn: "5m",
+         expiresIn: "60m",
       })
 
       const refreshToken = jwt.sign({ id: user._id }, process.env.REFRESH_TOKEN as string, {

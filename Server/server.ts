@@ -20,7 +20,8 @@ const httpServer = http.createServer(app);
 const io = new SocketIOServer(httpServer, {
     cors: {
         origin: 'http://localhost:3000',  // Allow all origins for testing
-        methods: ['GET', 'POST']
+        methods: ['GET', 'POST'],
+        credentials:true
     },
     transports: ['websocket','polling'],  // Force the server to use WebSocket only
 });
@@ -30,7 +31,6 @@ const io = new SocketIOServer(httpServer, {
 initializeSocket(io);
 
 //create server
-console.log(`Attempting to start server on port: ${process.env.PORT}`);
 httpServer.listen(process.env.PORT, async () => {
     try {
         console.log(`Server is listening on port ${process.env.PORT}`);

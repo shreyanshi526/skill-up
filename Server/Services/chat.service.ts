@@ -150,9 +150,9 @@ export const startChat = async (data: { senderId: any, receiverId: any }, res: R
 
 export const createMessage = async (data: { chatId: any, senderId: string, message: string }, res: Response) => {
     const { chatId, senderId, message } = data;
-
+    console.log(data,"ji")
     let chat = await Chat.findOne({ chatId });
-
+    console.log(chat,"chat")
     if (!chat) {
         return res.status(404).json({ success: false, message: "No chat found with this id." });
     };
@@ -165,5 +165,6 @@ export const createMessage = async (data: { chatId: any, senderId: string, messa
 
     chat.messages.push(createdMessage._id);
     await chat.save();
+    console.log(createdMessage,"wd")
     return createdMessage;
 };
