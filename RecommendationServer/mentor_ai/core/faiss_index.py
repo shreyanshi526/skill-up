@@ -54,9 +54,7 @@ def load_index():
     return index
 
 def search_similar(query_embedding, top_k=5):
-    """
-    Searches the FAISS index for similar mentors.
-    """
+
     if not mentor_id_map:
         raise ValueError("mentor_id_map is empty. Load the index first.")
 
