@@ -16,6 +16,7 @@ const MessageSchema: Schema = new Schema(
     {
         chatId: {type: String, ref: 'Chat', required: true },
         senderId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+        senderName: { type: String, required: true },
         message: { type: String, required: true },
         messageType: { type: String, enum: ['text', 'image', 'video', 'file'], default: 'text' },
         mediaUrl: { type: String, default: null },

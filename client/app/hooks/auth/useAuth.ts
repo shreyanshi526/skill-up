@@ -1,10 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import coreApi from '../../utils/CoreApiInstance';
-import Cookies from 'js-cookie';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
+import { RootState } from '@/app/redux/store';
+import { setUser } from '@/app/redux/userSlice';
+
 
 interface RegisterUser {
     name: string;
@@ -29,10 +30,10 @@ export const useAuth = () => {
     useEffect(() => {
         const getUser = async () => {
             try {
-                const { data } = await coreApi.get('/v1/me', { 
+                const { data } = await coreApi.get('/v1/me', {
                     withCredentials: true,
                 });
-                localStorage.setItem("user",JSON.stringify(data.user) )
+                localStorage.setItem("user", JSON.stringify(data.user))
                 dispatch({
                     type: 'SET_USER',
                     payload: data.user,
@@ -45,9 +46,6 @@ export const useAuth = () => {
         getUser();
     }, [dispatch]);
 
-    // Get user from redux store
-    const user = JSON.parse(localStorage.getItem("user") || '{}');
-console.log(user.name);
 
     // Register User
     const register = useMutation({
@@ -64,7 +62,7 @@ console.log(user.name);
     // Verify User
     const verifyUser = useMutation<any, Error, VerifyUserParams, unknown>({
         mutationFn: async (data: VerifyUserParams) => {
-            const response = await coreApi.post('/v1/activate-user', 
+            const response = await coreApi.post('/v1/activate-user',
                 { activation_code: data.activation_code },
                 {
                     headers: {
@@ -76,7 +74,7 @@ console.log(user.name);
             sessionStorage.removeItem('activation_token');
             return response.data;
         },
-        onSuccess: (data) => {   
+        onSuccess: (data) => {
             // Redirect to home page
             router.push('/');
         },
@@ -89,16 +87,22 @@ console.log(user.name);
                 email: data.email,
                 password: data.password,
             });
+
             return response.data;
         },
         onSuccess: (data) => {
-            // Redirect to home page
+
+            dispatch(setUser(data.user));
             router.push('/');
         },
     });
 
-    return { 
-        register, 
+    const user = useSelector((state: RootState) => state.user.user);
+    const user1 = useSelector((state: RootState) => state);
+
+    
+    return {
+        register,
         verifyUser,
         login,
         user,

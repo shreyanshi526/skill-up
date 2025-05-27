@@ -7,7 +7,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SocketProvider } from './context/SocketContext';
 import { useState } from 'react';
 import { Provider } from 'react-redux';
-import { store } from './redux/store';  // You'll need to create this
+import { persistor, store } from './redux/store';  // You'll need to create this
+import { PersistGate } from 'redux-persist/integration/react';
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -32,13 +33,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.variable} ${josefin.variable} !bg-white bg-no-repeat dark:bg-gradient-to-b dark:from-gray-900 dark:to-black duration-300`}>
         <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
           <SocketProvider>
             <QueryClientProvider client={queryClient}>
               <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-                {children}
+                  {children}
               </ThemeProvider>
             </QueryClientProvider>
           </SocketProvider>
+          </PersistGate>
         </Provider>
       </body>
     </html>

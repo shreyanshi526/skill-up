@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/auth/useAuth";
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 import Link from 'next/link';
+import { useRouter } from "next/navigation";
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -26,6 +27,15 @@ export default function Signup() {
       sessionStorage.setItem('activation_token', response.activationToken);
     }
   };
+    const router = useRouter();
+    const { user } = useAuth();
+  
+    useEffect(() => {
+      if (user) {
+        // If user exists, redirect to home
+        router.replace('/');
+      }
+    }, []);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-400 to-indigo-500">

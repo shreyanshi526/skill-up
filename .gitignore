@@ -1,8 +1,22 @@
-#env file
+# Python virtual environment
+venv/
+
+# Python bytecode cache
+__pycache__/
+*.py[cod]
+bin/
+
+# Environment variable files
+.env
 /Server/.env
 /client/.env.local
 
-#node modules
+# Node modules folders
 node_modules
 /Server/node_modules
 /client/node_modules
+
+# IDE/editor configs (optional but recommended)
+.vscode/
+.idea/
+RecommendationServer/venv/bin/activate.csh

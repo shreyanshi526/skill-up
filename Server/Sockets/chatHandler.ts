@@ -11,27 +11,31 @@ export const chatHandler = (io: Server, socket: Socket) => {
     socket.on('send_message', async (data) => {
 
         try {
-            const { senderId, chatId, message } = data;
+            const { senderId, senderName, chatId, message } = data;
             const timestamp = new Date().toISOString();
 
             // First store message in database
             const newMessage = await Message.create({
                 senderId,
+                senderName,
                 chatId,
                 message,
                 timestamp
             });
-
+            console.log(newMessage, "MEssage")
             // Update chat with new message
-            await Chat.findOneAndUpdate(
+            const result = await Chat.findOneAndUpdate(
                 { chatId: chatId },
                 { $push: { messages: newMessage._id } }
             );
-            console.log(timestamp,"timestamp")
+            console.log("Result>>>>>>",result)
+            console.log(timestamp, "timestamp")
             // Then emit to all users in the room
-            socket.to(chatId).emit('receive_message', {
-                newMessage
-            });
+            if (result) {
+                socket.to(chatId).emit('receive_message', {
+                    newMessage
+                });
+            }
 
         } catch (error) {
             console.error('Error sending message:', error);

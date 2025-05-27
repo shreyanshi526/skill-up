@@ -2,20 +2,18 @@
 import React, { FC, useEffect, useState } from "react";
 import Heading from "./utils/Heading";
 import Header from './components/Header';
-import { useAuth } from '../app/hooks/auth/useAuth';
 import { TextGenerateEffect } from "./components/ui/text-generate-effect";
 import { TextHoverEffect } from "./components/ui/text-hover-effect";
 import { SparklesCore } from "./components/ui/sparkles";
 import { useTheme } from "next-themes";
 import { TypewriterEffect } from "./components/ui/typewriter-effect";
-import { useRouter } from "next/navigation";
 
 interface Props { }
 
 const Page: FC<Props> = (props) => {
   const { theme } = useTheme();
   const [particleColor, setParticleColor] = useState("#000000");
-  const { user } = useAuth();
+
   useEffect(() => {
     if (theme === "dark") {
       setParticleColor("#ffffff"); // white in dark mode
@@ -78,17 +76,8 @@ const Page: FC<Props> = (props) => {
   const [open, setOpen] = useState(false);
   const [activeItem, setActiveItem] = useState(0);
   const [route, setRoute] = useState("Login")
-  const title = "A Full Stack Developer"
-  const router = useRouter();
-  // useEffect(() => {
-  //   console.log("IM here");
-  //   const storedUser = localStorage.getItem("user")
-  //   if (!storedUser) {
-  //     console.log(user,">>>>>>>>>>>>>>")
-  //     router.push("/auth/signup");
-  //   }
-  // }, []);
 
+  const title = "A Full Stack Developer"
   return (
     <div>
       <Heading
@@ -104,11 +93,6 @@ const Page: FC<Props> = (props) => {
         setRoute={setRoute}
         route={route}
       />
-      {/* <div className="flex min-h-screen items-center justify-center">
-        <h1 className="text-3xl font-bold">
-          {user ? `Welcome ${user.name}! 👋` : 'Loading...'}
-        </h1>
-      </div> */}
       <div className="min-h-screen max-h-full relative w-full flex flex-col gap-5 md:gap-y-10 items-center mt-5 md:mt-10 justify-start overflow-hidden ">
         {/* Top Section */}
         <div className=" flex flex-col justify-center items-center w-[95%] bg-neutral-50 dark:bg-black rounded-3xl">

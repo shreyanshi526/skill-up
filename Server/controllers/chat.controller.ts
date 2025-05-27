@@ -78,7 +78,6 @@ export const onSendMessage = CatchAsyncError(async (req: Request, res: Response,
     try {
         const { chatId,receiverId,message  } = req.body;
         const senderId = req.user?._id;
-        console.log('im here')
         if (!senderId || !chatId || !message) {
             return res.status(400).json({ message: "Required all fields." });
         }

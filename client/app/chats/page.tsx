@@ -6,6 +6,8 @@ import { useGetChatsRecords, useGetAllMessages } from "../hooks/useChat";
 import { useSocket } from "../context/SocketContext"; // Using the SocketContext
 import { useAuth } from "../hooks/auth/useAuth";
 
+
+
 type Props = Record<string, never>;
 
 const Page: FC<Props> = () => {
@@ -23,14 +25,15 @@ const Page: FC<Props> = () => {
   const { data: mentors, isLoading } = useGetChatsRecords();
   const { data: messageDetails } = useGetAllMessages(currentOpenChatId);
 
-  const  user  = useAuth();
-  const userId = user.user._id
-
+  
   const handleChatClick = (chatId: string) => {
     setCurrentOpenChatId(chatId);
     setCurrentOpenChatDetails(messageDetails);
-    socketClient?.joinRoom(chatId); // Join the chat room using socketClient
+    socketClient?.joinRoom(chatId);
   };
+
+  const {user} = useAuth();
+  const userId = user?._id
 
   useEffect(() => {
     if (mentors?.chats?.length && userId && currentOpenChatId === "") {
@@ -43,7 +46,6 @@ const Page: FC<Props> = () => {
     if (socketClient) {
       // Listen for real-time incoming messages
       socketClient.onReceiveMessage((incomingMessage) => {
-        console.log(incomingMessage);
         setCurrentOpenChatDetails((prevMessages) => [
           ...prevMessages,
           incomingMessage,
@@ -62,6 +64,7 @@ const Page: FC<Props> = () => {
 
     const newMessageObj = {
       senderId: userId,
+      senderName:user.name,
       chatId: currentOpenChatId,
       message: newMessage,
     };
@@ -86,10 +89,8 @@ const Page: FC<Props> = () => {
   // Helper function to determine if the message is from the current user
   const isCurrentUser = (message: any, userId: string) => {
     if (typeof message.senderId === "string") {
-      // WebSocket message structure
       return message.senderId === userId;
     } else if (typeof message.senderId === "object") {
-      // API message structure
       return message.senderId?._id === userId;
     }
     return false;
@@ -97,17 +98,14 @@ const Page: FC<Props> = () => {
 
   // Helper function to get the username
   const getUsername = (message: any, userId: string) => {
-    console.log(message,"msg");
-    console.log(userId);
     if (typeof message.senderId === "string") {
       // WebSocket message structure
       return message.senderId === userId ? "You" : "Other"; // Return 'You' only if it's the current user
     } else if (typeof message.senderId === "object") {
-      console.log('web')
-      // API message structure
-      return isCurrentUser(message, userId)
+      const yes = isCurrentUser(message, userId)
+      return yes
         ? "You"
-        : message.senderId?.name;
+        : message.senderId?.name || message.senderName;
     }
     return "Unknown";
   };
@@ -129,17 +127,17 @@ const Page: FC<Props> = () => {
 
       <div className="flex-1 flex bg-gray-100 dark:bg-gray-800">
         {/* Sidebar */}
-        <div className="w-[300px] bg-white dark:bg-gray-900 border-r dark:border-gray-700 flex flex-col">
+        <div className="w-[300px] border-2 border-red-600 bg-white dark:bg-gray-900 border-r dark:border-gray-700 flex flex-col">
           <div className="p-4 border-b dark:border-gray-700">
             <div className="p-4 border-b dark:border-gray-700">
               <input
                 type="text"
-                value={user.user.name} // Displaying the name instead of entering the ID
+                value={user.name} // Displaying the name instead of entering the ID
                 readOnly
                 className="w-full p-2 rounded-lg border dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none"
               />
             </div>
-             
+
           </div>
 
           {isLoading ? (
@@ -183,33 +181,29 @@ const Page: FC<Props> = () => {
         </div>
 
         {/* Chat Area */}
-        <div className="flex-1 flex flex-col">
-          <div className="p-4 border-b dark:border-gray-700 bg-white dark:bg-gray-900">
+        <div className="flex-1 flex flex-col border-yellow-400 border-2 h-full max-h-screen">
+          {/* Sticky Chat Header */}
+          <div className="p-4 border-b dark:border-gray-700 bg-white dark:bg-gray-900 sticky top-0 z-10">
             <h2 className="text-xl font-semibold dark:text-white">
               {mentors?.chats
                 ?.find((chat: any) => chat.chatId === currentOpenChatId)
-                ?.participants?.find((p: any) => p._id !== userId)?.name ||
-                "Select a chat"}
+                ?.participants?.find((p: any) => p._id !== userId)?.name || "Select a chat"}
             </h2>
           </div>
 
-          {/* Messages Area */}
+          {/* Scrollable Messages Area */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {currentOpenChatDetails?.map((message: any, index: number) => (
               <div
                 key={index}
-                className={`flex ${
-                  isCurrentUser(message, userId)
-                    ? "justify-end"
-                    : "justify-start"
-                }`}
+                className={`flex ${isCurrentUser(message, userId) ? "justify-end" : "justify-start"
+                  }`}
               >
                 <div
-                  className={`w-auto ${
-                    isCurrentUser(message, userId)
+                  className={`w-auto ${isCurrentUser(message, userId)
                       ? "bg-blue-500 text-white"
                       : "bg-gray-200 dark:bg-gray-700 dark:text-white"
-                  } rounded-lg p-3`}
+                    } rounded-lg p-3`}
                 >
                   <span className="text-sm font-semibold">
                     {getUsername(message, userId)}
@@ -220,7 +214,7 @@ const Page: FC<Props> = () => {
             ))}
           </div>
 
-          {/* Message Input */}
+          {/* Sticky Bottom Input */}
           <div className="p-4 border-t dark:border-gray-700 bg-white dark:bg-gray-900">
             <div className="flex space-x-2">
               <input

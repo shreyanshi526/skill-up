@@ -27,7 +27,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
 
   return (
     <SocketContext.Provider value={{ socketClient }}>
-      {children}  {/* Render the children inside the provider */}
+      {children}
     </SocketContext.Provider>
   );
 };

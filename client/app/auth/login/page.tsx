@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from '@/app/hooks/auth/useAuth';
 import { FaEnvelope, FaLock } from 'react-icons/fa';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
@@ -14,6 +15,16 @@ export default function LoginPage() {
         e.preventDefault();
         login.mutate({ email, password });
     };
+
+      const router = useRouter();
+      const { user } = useAuth();
+    
+      useEffect(() => {
+        if (user) {
+          // If user exists, redirect to home
+          router.replace('/');
+        }
+      }, []);
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-400 to-indigo-500">

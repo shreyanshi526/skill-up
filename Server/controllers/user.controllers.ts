@@ -26,7 +26,7 @@ export const registartionUser = CatchAsyncError(
    async (req: Request, res: Response, next: NextFunction) => {
       try {
          const { name, email, password } = req.body;
-
+          console.log(password,email,name,">>>>>>>>>>>")
          const isEmailExist = await userModel.findOne({ email });
          if (isEmailExist) {
             return next(new ErrorHandler("Email already exsist", 400))
@@ -56,10 +56,12 @@ export const registartionUser = CatchAsyncError(
                activationToken: activationToken.token
             })
          } catch (error: any) {
+            console.log("error",error)
             return next(new ErrorHandler(error.message, 401))
          }
 
       } catch (error: any) {
+         console.log("error2",error)
          return next(new ErrorHandler(error.message, 400))
       }
    })
@@ -136,6 +138,7 @@ interface ILoginRequest {
 
 export const loginUser = CatchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
    try {
+      console.log(req.ip)
       const { email, password } = req.body as ILoginRequest;
       const user = await userModel.findOne({ email }).select("+password");
 
