@@ -35,9 +35,7 @@ def build_index(embeddings, mentor_ids):
     return index
 
 def load_index():
-    """
-    Loads the FAISS index and mentor ID map from disk.
-    """
+
     global mentor_id_map
 
     if not os.path.exists(INDEX_PATH) or not os.path.exists(ID_MAP_PATH):
