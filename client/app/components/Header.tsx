@@ -47,7 +47,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, open, route }) => {
             {/* header name on left side */}
             <div>
               <Link href={"/"} className={`text-[25px] font-Poppins font-[500] text-black dark:text-white`}>
-                Elearning
+                Shreyanshi Kushwaha {/* Elearning */}
               </Link>
             </div>
 
@@ -112,17 +112,17 @@ const Header: FC<Props> = ({ activeItem, setOpen, open, route }) => {
         <>
         </>
       )}
-      {
+      {/* {
         route === "Login" && (
           <>
             {
               open && (
-                <customModal/>
+                // <customModal/>
               )
             }
           </>
         )
-      }
+      } */}
     </div>
   )
 }

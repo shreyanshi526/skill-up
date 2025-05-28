@@ -2,20 +2,19 @@
 import React, { FC, useEffect, useState } from "react";
 import Heading from "./utils/Heading";
 import Header from './components/Header';
-import { useAuth } from '../app/hooks/auth/useAuth';
 import { TextGenerateEffect } from "./components/ui/text-generate-effect";
 import { TextHoverEffect } from "./components/ui/text-hover-effect";
 import { SparklesCore } from "./components/ui/sparkles";
 import { useTheme } from "next-themes";
 import { TypewriterEffect } from "./components/ui/typewriter-effect";
-import { useRouter } from "next/navigation";
+import MarqueeComponent, { DirectionEnum } from "./components/reuseable/marquee";
+import rabbitMq from './../assests/rabbitmq-logo.webp'
 
 interface Props { }
 
 const Page: FC<Props> = (props) => {
   const { theme } = useTheme();
   const [particleColor, setParticleColor] = useState("#000000");
-  const { user } = useAuth();
   useEffect(() => {
     if (theme === "dark") {
       setParticleColor("#ffffff"); // white in dark mode
@@ -25,6 +24,10 @@ const Page: FC<Props> = (props) => {
   }, [theme]);
 
   const words = [
+    {
+      text: `"`,
+      className: "text-blue-500 dark:text-yellow-500",
+    },
     {
       text: "I",
       className: "text-blue-500 dark:text-blue-500",
@@ -72,6 +75,10 @@ const Page: FC<Props> = (props) => {
     {
       text: "practices.",
     },
+    {
+      text: `"`,
+      className: "text-blue-500 dark:text-yellow-500",
+    }
   ];
 
 
@@ -79,24 +86,14 @@ const Page: FC<Props> = (props) => {
   const [activeItem, setActiveItem] = useState(0);
   const [route, setRoute] = useState("Login")
   const title = "A Full Stack Developer"
-  const router = useRouter();
-  // useEffect(() => {
-  //   console.log("IM here");
-  //   const storedUser = localStorage.getItem("user")
-  //   if (!storedUser) {
-  //     console.log(user,">>>>>>>>>>>>>>")
-  //     router.push("/auth/signup");
-  //   }
-  // }, []);
-
+  const gradientColor = theme === "dark" ? "#000000" : "#fafafa";
   return (
     <div>
       <Heading
-        title="Elearning"
+        title="Shreyanshi Kushwaha"
         description="Learn Your Way!"
         keywords="MERN,MEAN,REDUX"
       />
-      {/* we can call this heading comjponent on every page to change the name of page acrrodingl ex- from signup to welcome etc*/}
       <Header
         open={open}
         setOpen={setOpen}
@@ -104,11 +101,6 @@ const Page: FC<Props> = (props) => {
         setRoute={setRoute}
         route={route}
       />
-      {/* <div className="flex min-h-screen items-center justify-center">
-        <h1 className="text-3xl font-bold">
-          {user ? `Welcome ${user.name}! 👋` : 'Loading...'}
-        </h1>
-      </div> */}
       <div className="min-h-screen max-h-full relative w-full flex flex-col gap-5 md:gap-y-10 items-center mt-5 md:mt-10 justify-start overflow-hidden ">
         {/* Top Section */}
         <div className=" flex flex-col justify-center items-center w-[95%] bg-neutral-50 dark:bg-black rounded-3xl">
@@ -147,11 +139,63 @@ const Page: FC<Props> = (props) => {
 
         </div>
         {/* Middle Section  */}
-        <div className=" flex flex-col lg:flex-row justify-between md:justify-around items-center w-[95%]  border border-white bg-neutral-50 dark:bg-black rounded-3xl  py-5 px-10 ">
-          <div className="w-full lg:w-[30%]">
+        <div className="flex flex-col lg:flex-row justify-between md:justify-around items-center w-[95%] bg-neutral-50 dark:bg-black rounded-3xl  py-5 px-10 ">
+          <div className="w-full lg:w-[30%] min-h-64">
             <TypewriterEffect words={words} />
           </div>
-          <div className=" w-full lg:w-[50%] border border-red-400"></div>
+          <div className=" w-full lg:w-[50%] bg-neutral-50 dark:bg-black">
+            <MarqueeComponent
+              direction={DirectionEnum.Left}
+              speed={100}
+              gradient={true}
+              gradientColor={gradientColor} // ✅ single string
+              gradientWidth={200}
+              icons={[
+                <img width="100" height="100" src="https://img.icons8.com/color/100/html-5--v1.png" alt="html-5--v1"/>,
+                <img width="100" height="100" src="https://img.icons8.com/color/100/javascript--v1.png" alt="javascript--v1" />,
+                <img width="100" height="100" src="https://img.icons8.com/color/100/awslambda.png" alt="awslambda" />,
+                <img width="100" height="100" src="https://img.icons8.com/fluency/100/bootstrap.png" alt="bootstrap" />,
+                <img width="100" height="100" src="https://img.icons8.com/arcade/100/sql.png" alt="sql" />,
+                <img width="100" height="100" src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/100/external-postgre-sql-a-free-and-open-source-relational-database-management-system-logo-color-tal-revivo.png" alt="postgre-sql" />,
+                <img width="100" height="100" src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/100/external-mongodb-a-cross-platform-document-oriented-database-program-logo-color-tal-revivo.png" alt="mongodb" />,
+                <img width="100" height="100" src="https://img.icons8.com/nolan/100/amazon-s3.png" alt="amazon-s3" />,
+                <img width="100" height="100" src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/100/external-amazon-web-services-a-subsidiary-of-amazon-that-provides-on-demand-cloud-computing-logo-color-tal-revivo.png" alt="AWS" />,
+              ]}
+            />
+            <MarqueeComponent
+              direction={DirectionEnum.Right}
+              speed={100}
+              gradient={true}
+              gradientColor={gradientColor} // ✅ single string
+              gradientWidth={350}
+              icons={[
+                <img width="100" height="100" src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/100/external-data-visualization-and-monitoring-with-support-for-graphite-and-influxdb-logo-color-tal-revivo.png" alt="grafna" />,
+                <img width="100" height="100" src="https://img.icons8.com/fluency/100/visual-studio.png" alt="visual-studio" />,
+                <img width="100" height="100" src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/100/external-postman-is-the-only-complete-api-development-environment-logo-color-tal-revivo.png" alt="postman" />,
+                <img width="100" height="100" src="https://img.icons8.com/nolan/100/nextjs.png" alt="nextjs" />,
+                <img width={220} height={220} src={rabbitMq.src} alt="rabbitmq" />,
+                <img width="100" height="100" src="https://img.icons8.com/fluency/100/python.png" alt="python" />,
+                <img width="100" height="100" src="https://img.icons8.com/color/100/kubernetes.png" alt="kubernetes" />,
+              ]}
+            />
+            <MarqueeComponent
+              direction={DirectionEnum.Left}
+              speed={100}
+              gradient={true}
+              gradientColor={gradientColor} // ✅ single string
+              gradientWidth={250}
+              icons={[
+                <img width="100" height="100" src="https://img.icons8.com/color/100/css3.png" alt="css3" />,
+                <img width="100" height="100" src="https://img.icons8.com/fluency/100/typescript--v2.png" alt="typescript--v2" />,
+                <img width="100" height="100" src="https://img.icons8.com/color/100/tailwindcss.png" alt="tailwindcss" />,
+                <img width="100" height="100" src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/100/external-redis-an-in-memory-data-structure-project-implementing-a-distributed-logo-shadow-tal-revivo.png" alt="redis" />,
+                <img width="94" height="94" src="https://img.icons8.com/3d-fluency/94/github.png" alt="github" />,
+                <img width="100" height="100" src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/100/external-docker-a-set-of-coupled-software-as-a-service-logo-color-tal-revivo.png" alt="docker" />,
+                <img width="100" height="100" src="https://img.icons8.com/color/100/nodejs.png" alt="nodejs" />,
+                <img width="100" height="100" src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/100/external-react-a-javascript-library-for-building-user-interfaces-logo-color-tal-revivo.png" alt="react" />
+              ]}
+            />
+          </div>
         </div>
       </div>
     </div>

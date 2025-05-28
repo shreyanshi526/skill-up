@@ -16,7 +16,7 @@ def main():
 
     # # Create a query embedding
     model = SentenceTransformer("all-MiniLM-L6-v2")
-    query_text = "reactjs"
+    query_text = "Looking for a mentor experienced with Golang"
     query_embedding = model.encode([query_text])[0]
 
     # # Search top 3 similar mentors
