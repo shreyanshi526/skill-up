@@ -9,6 +9,14 @@ import { useTheme } from "next-themes";
 import { TypewriterEffect } from "./components/ui/typewriter-effect";
 import MarqueeComponent, { DirectionEnum } from "./components/reuseable/marquee";
 import rabbitMq from './../assests/rabbitmq-logo.webp'
+import women from './../assests/women.png';
+import Button from "./components/reuseable/Button";
+import { Timeline } from "./components/ui/timeline";
+import ChipButton from "./components/ui/chips";
+import { ContainerScroll } from "./components/ui/container-scroll";
+import { Vortex } from "./components/ui/vortex";
+import { FaEnvelope, FaLinkedin } from "react-icons/fa";
+
 
 interface Props { }
 
@@ -22,6 +30,7 @@ const Page: FC<Props> = (props) => {
       setParticleColor("#6366f1"); // black in light mode
     }
   }, [theme]);
+
 
   const words = [
     {
@@ -81,6 +90,127 @@ const Page: FC<Props> = (props) => {
     }
   ];
 
+  const data = [
+    {
+      title: "Nov 24 - Present",
+      content: (
+        <div>
+          <h3 className="text-sm underline underline-offset-4 font-normal text-neutral-800 md:text-xl dark:text-neutral-200">
+            Full Stack Developer At Zevo360 Technologies
+          </h3>
+          <p className="mb-8 mt-1 text-xs font-normal text-neutral-800 md:text-base dark:text-neutral-200">
+            Building Zevo a product for parenting with new a prespective.
+          </p>
+          <ol className=" text-neutral-800 text-xs md:text-base dark:text-neutral-200">
+            <li className="mb-2">
+              ◦ Backend : Working on Distributed system with multiple Microservices, handled synhcronisation using RabbitMq, implemented client-side
+              field-level encryption on mongodb, managed user sessions using Refresh Tokens and Access tokens, and enhanced API security using Anti-forgery
+              tokens.
+            </li>
+            <li>
+              ◦ Frontend : Optimized microservice API call structure for performance and version compatibility. Built a responsive
+              admin panel, integrated secure image delivery via AWS CloudFront, and added payment gateway SDKs for
+              seamless transactions.
+            </li>
+          </ol>
+          <div className="mt-3 sm:mt-4">
+            <ChipButton label="RabbitMQ" />
+            <ChipButton label="Mircoservices" />
+            <ChipButton label="API Gateway" />
+            <ChipButton label="CI/CD" />
+            <ChipButton label="Typescript" />
+            <ChipButton label="NextJS" />
+            <ChipButton label="SCSS" />
+            <ChipButton label="CloudFront" />
+            <ChipButton label="Tailwind" />
+            <ChipButton label="Jest" />
+            <ChipButton label="Grafana" />
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "Mid 2024",
+      content: (
+        <div>
+          <h3 className="text-sm underline underline-offset-4 font-normal text-neutral-800 md:text-xl dark:text-neutral-200">
+            Full Stack Developer At Starworks Prime
+          </h3>
+          <p className="mb-8 mt-1 text-xs font-normal text-neutral-800 md:text-base dark:text-neutral-200">
+            Worked as a Freelancer on ERP system for Incubators and accelerator.
+          </p>
+          <ol className=" text-neutral-800 text-xs md:text-base dark:text-neutral-200">
+            <li className="mb-2">
+              ◦ ERP Module Development: Built custom modules including Programs Library, Mentor-Startup Association,
+              and Startup Application Management using Node.js, TypeScript, SQL, and Hasura. Integrated real-time chat
+              using Server-Sent Events (SSE).
+            </li>
+            <li>
+              ◦ Access Control & Security: Implemented Role-Based Access Control (RBAC) to manage permissions for
+              startups, mentors, and incubator staff, ensuring secure and role-specific access.
+            </li>
+          </ol>
+          <div className="mt-3 sm:mt-4">
+            <ChipButton label="AWS Incognito" />
+            <ChipButton label="AWS Lambda" />
+            <ChipButton label="AWS S3" />
+            <ChipButton label="Load Balancer" />
+            <ChipButton label="Amplify" />
+            <ChipButton label="VueJS" />
+            <ChipButton label="Hasura" />
+            <ChipButton label="SQL" />
+            <ChipButton label="GraphQL" />
+            <ChipButton label="Server Sent Events" />
+            <ChipButton label="Push Notification" />
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "Jan 24 - Nov 24",
+      content: (
+        <div>
+          <h3 className="text-sm underline underline-offset-4 font-normal text-neutral-800 md:text-xl dark:text-neutral-200">
+            Junior Full Stack Developer At Varlyq Technologies
+          </h3>
+          <p className="mb-8 mt-1 text-xs font-normal text-neutral-800 md:text-base dark:text-neutral-200">
+            Delivered 2+ full-stack projects From development to deployment.
+          </p>
+          <ol className=" text-neutral-800 text-xs md:text-base dark:text-neutral-200">
+            <li className="mb-2">
+              ◦ DevOps Execution: Managed DevOps tasks, including CI/CD automation, Deployments on Amplify, used
+              AWS Cognito and Secrets Manager, and containerization using Docker to streamline company operations.
+            </li>
+            <li>
+              ◦ UX Optimization: Improved UX for 5+ websites, through responsive design and modern UI frameworks and
+              libraries. Worked on state management using Redux
+            </li>
+          </ol>
+          <div className="mt-3 sm:mt-4">
+            <ChipButton label="NodeJS" />
+            <ChipButton label="ReactJS" />
+            <ChipButton label="ExpressJS" />
+            <ChipButton label="MongoDB" />
+            <ChipButton label="No SQL" />
+            <ChipButton label="Redux" />
+            <ChipButton label="Tailwind" />
+            <ChipButton label="MUI" />
+            <ChipButton label="Bootstarp" />
+            <ChipButton label="HTML" />
+            <ChipButton label="CSS" />
+            <ChipButton label="Javascript" />
+            <ChipButton label="Nginx" />
+            <ChipButton label="proxy servers" />
+          </div>
+        </div>
+      ),
+    },
+  ];
+
+  const heading = {
+    title: 'Changelog from journey',
+    description: `I have been working as a developer from over 1.5 years , here's a time line of my journey so far`
+  }
 
   const [open, setOpen] = useState(false);
   const [activeItem, setActiveItem] = useState(0);
@@ -138,10 +268,14 @@ const Page: FC<Props> = (props) => {
           </div>
 
         </div>
-        {/* Middle Section  */}
+        {/* Middle Section - (Marquee effect)  */}
         <div className="flex flex-col lg:flex-row justify-between md:justify-around items-center w-[95%] bg-neutral-50 dark:bg-black rounded-3xl  py-5 px-10 ">
           <div className="w-full lg:w-[30%] min-h-64">
             <TypewriterEffect words={words} />
+            <div className=" text-black dark:text-white flex gap-2 pt-6">
+              <Button label="See Resume" onClick={() => console.log('Clicked')} width="w-48" height="py-2" textSize="text-md" gradient="bg-gradient-to-r from-indigo-500 to-sky-500" />
+              <Button label="Contact Me" onClick={() => console.log('Clicked')} width="w-48" height="py-2" textSize="text-md" gradient="bg-gradient-to-r from-indigo-500 to-sky-500" />
+            </div>
           </div>
           <div className=" w-full lg:w-[50%] bg-neutral-50 dark:bg-black">
             <MarqueeComponent
@@ -151,7 +285,7 @@ const Page: FC<Props> = (props) => {
               gradientColor={gradientColor} // ✅ single string
               gradientWidth={200}
               icons={[
-                <img width="100" height="100" src="https://img.icons8.com/color/100/html-5--v1.png" alt="html-5--v1"/>,
+                <img width="100" height="100" src="https://img.icons8.com/color/100/html-5--v1.png" alt="html-5--v1" />,
                 <img width="100" height="100" src="https://img.icons8.com/color/100/javascript--v1.png" alt="javascript--v1" />,
                 <img width="100" height="100" src="https://img.icons8.com/color/100/awslambda.png" alt="awslambda" />,
                 <img width="100" height="100" src="https://img.icons8.com/fluency/100/bootstrap.png" alt="bootstrap" />,
@@ -196,6 +330,69 @@ const Page: FC<Props> = (props) => {
               ]}
             />
           </div>
+        </div>
+        {/* Experience section */}
+        <div className="w-[95%] bg-neutral-50 dark:bg-black rounded-3xl  py-5 px-10">
+          <Timeline data={data} Heading={heading} />
+        </div>
+
+        {/* About Me section */}
+        <ContainerScroll
+          titleComponent={
+            <h1 className="text-4xl font-semibold text-black dark:text-white">
+              Learn More <br />
+              <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none">
+                ABOUT ME
+              </span>
+            </h1>
+          }
+        >
+          <div className="flex justify-between items-center">
+            <p className=" w-full p-4 sm:p-0 sm:w-[50%] text-xs sm:text-base font-Poppins">
+              <span className="text-yellow-500 text-lg">"</span> I'm a Full Stack Developer with 15 months of experience crafting scalable, high-performance web apps using the MERN stack, PostgreSQL, and MongoDB. I build sleek, responsive UIs with Next.js, React.js, Tailwind CSS, and MUI, and engineer secure, efficient backends with Node.js, Express.js, TypeScript & javascript, and both SQL & NoSQL databases.<br /><br />
+
+              From using distributed microservices architecture, Synchronoization using RabbitMQ, User Session managment ,Real-time features (SSE & socket.IO) to Role Based Access Control, and payment integrations till securing your app of vulnerabilities using encryptions, I’ve delivered full-stack solutions that perform in production. On the DevOps side, I handle CI/CD, Docker, and AWS deployments using Amplify, Cognito, S3, Secrets Manager, and more.<br /><br />
+
+              I'm certified as an AWS Cloud Practitioner and Solutions Architect, and I'm fluent with tools like GitHub, Postman, Sonar, and Grafana.<span className="text-yellow-500 text-xl">"</span><br />
+
+              <br /><span className="text-yellow-500 text-lg sm:text-xl">My Motto: Discover, Develop, & Deploy </span>
+              <p className="block sm:hidden w-full text-start">- SHREYANSHI KUSHWAHA</p></p>
+            <div className="w-[50%] hidden sm:block ">
+              <img src={women.src} className="w-full h-full">
+              </img>
+              <p className="w-full text-center">SHREYANSHI KUSHWAHA</p>
+            </div>
+          </div>
+        </ContainerScroll>
+        {/*  Contect */}
+        <div className="w-full bg-neutral-50 dark:bg-black border-4">
+          <section className=" pb-10 w-full" id="connect">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-3xl font-bold mb-4 text-gray-800 dark:text-white">Let's Connect</h2>
+              <p className="text-gray-600 dark:text-gray-50 mb-6">
+                Feel free to reach out through LinkedIn or send me an email!
+              </p>
+              <div className="flex justify-center gap-8">
+                {/* LinkedIn */}
+                <a
+                  href="https://www.linkedin.com/in/shreyanshi-kushwaha-0137b4265/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800 transition duration-300 text-4xl"
+                >
+                  <FaLinkedin />
+                </a>
+
+                {/* Email */}
+                <a
+                  href="mailto:shreyanshikushwaha79@gmail.com"
+                  className="text-red-500 hover:text-red-700 transition duration-300 text-4xl"
+                >
+                  <FaEnvelope />
+                </a>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </div>
