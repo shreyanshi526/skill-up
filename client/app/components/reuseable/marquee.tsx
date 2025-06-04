@@ -2,7 +2,7 @@
 import React, { FC, ReactNode } from "react"
 import Marquee from "react-fast-marquee"
 
-export enum DirectionEnum { 
+export enum DirectionEnum {
   Left = 'left',
   Right = 'right'
 }
@@ -36,11 +36,13 @@ const MarqueeComponent: FC<MarqueeProps> = ({
       delay={delay}
       gradient={gradient}
       gradientColor={gradientColor}
-      gradientWidth = {gradientWidth}
+      gradientWidth={gradientWidth}
     >
-      {icons.map((icon, index) => (
-        <div key={index} className="mx-4">{icon}</div>
-      ))}
+      <div className="flex items-center gap-y-6">
+        {icons.map((icon, index) => (
+          <div key={index} className="mx-4 sm:mx-6">{icon}</div>
+        ))}
+      </div>
     </Marquee>
   )
 }

@@ -24,7 +24,7 @@ const FancyButton: React.FC<FancyButtonProps> = ({
   return (
     <button
       onClick={onClick}
-      className={`bg-neutral-50 dark:bg-slate-800 no-underline group cursor-pointer relative shadow-2xl shadow-zinc-900 rounded-full p-px font-semibold leading-6 text-black dark:text-white inline-block ${textSize} ${className}`}
+      className={`bg-neutral-50 dark:bg-slate-800 no-underline group cursor-pointer relative  shadow-sm sm:shadow-2xl shadow-zinc-900 rounded-full p-px font-semibold leading-6 text-black dark:text-white inline-block ${textSize} ${className}`}
     >
       <span className="absolute inset-0 overflow-hidden rounded-full">
         <span
