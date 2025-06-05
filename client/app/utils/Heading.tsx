@@ -1,5 +1,5 @@
 //in this heading we will add all our metadeta
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 interface HeadProps {
     title: string,
     description: string,
@@ -13,6 +13,7 @@ const Heading: FC<HeadProps> = ({ title, description, keywords }) => {
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <meta name="description" content={description} />
             <meta name="keywords" content={keywords} />
+            <link rel="icon" href="/women.png" />
         </>
     )
 }
