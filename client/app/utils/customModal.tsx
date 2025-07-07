@@ -13,8 +13,10 @@ const customModal: FC<Props> = ({open,setOpen,setRoute,component:Component}) => 
     return (
         <Modal
          open={open}
-         
-        ></Modal>
+         onClose={() => setOpen(false)}
+        >
+            {Component && <Component setRoute={setRoute} />}
+        </Modal>
     )
 }
 
