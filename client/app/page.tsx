@@ -10,6 +10,7 @@ import { TypewriterEffect } from "./components/ui/typewriter-effect";
 import MarqueeComponent, { DirectionEnum } from "./components/reuseable/marquee";
 import rabbitMq from './../assests/rabbitmq-logo.webp'
 import women from './../assests/women.png';
+import Image from 'next/image';
 import Button from "./components/reuseable/Button";
 import { Timeline } from "./components/ui/timeline";
 import ChipButton from "./components/ui/chips";
@@ -290,15 +291,15 @@ const Page: FC<Props> = (props) => {
               gradientColor={gradientColor} // ✅ single string
               gradientWidth={200}
               icons={[
-                <img className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/color/100/html-5--v1.png" alt="html-5--v1" />,
-                <img className="w-12 h-12  sm:w-full sm:h-full" src="https://img.icons8.com/color/100/javascript--v1.png" alt="javascript--v1" />,
-                <img className="w-12 h-12  sm:w-full sm:h-full" src="https://img.icons8.com/color/100/awslambda.png" alt="awslambda" />,
-                <img className="w-12 h-12  sm:w-full sm:h-full" src="https://img.icons8.com/fluency/100/bootstrap.png" alt="bootstrap" />,
-                <img className="w-12 h-12  sm:w-full sm:h-full" src="https://img.icons8.com/arcade/100/sql.png" alt="sql" />,
-                <img className="w-12 h-12  sm:w-full sm:h-full" src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/100/external-postgre-sql-a-free-and-open-source-relational-database-management-system-logo-color-tal-revivo.png" alt="postgre-sql" />,
-                <img className="w-12 h-12  sm:w-full sm:h-full" src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/100/external-mongodb-a-cross-platform-document-oriented-database-program-logo-color-tal-revivo.png" alt="mongodb" />,
-                <img className="w-12 h-12  sm:w-full sm:h-full" src="https://img.icons8.com/nolan/100/amazon-s3.png" alt="amazon-s3" />,
-                <img className="w-12 h-12  sm:w-full sm:h-full" src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/100/external-amazon-web-services-a-subsidiary-of-amazon-that-provides-on-demand-cloud-computing-logo-color-tal-revivo.png" alt="AWS" />,
+                <Image key="html5" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/color/100/html-5--v1.png" alt="html-5--v1" width={48} height={48} unoptimized />,
+                <Image key="js" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/color/100/javascript--v1.png" alt="javascript--v1" width={48} height={48} unoptimized />,
+                <Image key="awslambda" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/color/100/awslambda.png" alt="awslambda" width={48} height={48} unoptimized />,
+                <Image key="bootstrap" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/fluency/100/bootstrap.png" alt="bootstrap" width={48} height={48} unoptimized />,
+                <Image key="sql" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/arcade/100/sql.png" alt="sql" width={48} height={48} unoptimized />,
+                <Image key="postgresql" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/100/external-postgre-sql-a-free-and-open-source-relational-database-management-system-logo-color-tal-revivo.png" alt="postgre-sql" width={48} height={48} unoptimized />,
+                <Image key="mongodb" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/100/external-mongodb-a-cross-platform-document-oriented-database-program-logo-color-tal-revivo.png" alt="mongodb" width={48} height={48} unoptimized />,
+                <Image key="s3" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/nolan/100/amazon-s3.png" alt="amazon-s3" width={48} height={48} unoptimized />,
+                <Image key="aws" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/100/external-amazon-web-services-a-subsidiary-of-amazon-that-provides-on-demand-cloud-computing-logo-color-tal-revivo.png" alt="AWS" width={48} height={48} unoptimized />,
               ]}
             />
             <MarqueeComponent
@@ -308,13 +309,13 @@ const Page: FC<Props> = (props) => {
               gradientColor={gradientColor} // ✅ single string
               gradientWidth={350}
               icons={[
-                <img className="w-12 h-12  sm:w-full sm:h-full" src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/100/external-data-visualization-and-monitoring-with-support-for-graphite-and-influxdb-logo-color-tal-revivo.png" alt="grafna" />,
-                <img className="w-12 h-12  sm:w-full sm:h-full" src="https://img.icons8.com/fluency/100/visual-studio.png" alt="visual-studio" />,
-                <img className="w-12 h-12  sm:w-full sm:h-full" src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/100/external-postman-is-the-only-complete-api-development-environment-logo-color-tal-revivo.png" alt="postman" />,
-                <img className="w-12 h-12  sm:w-full sm:h-full" src="https://img.icons8.com/nolan/100/nextjs.png" alt="nextjs" />,
-                <img className="w-12 h-16  sm:w-44 sm:h-44" src={rabbitMq.src} alt="rabbitmq" />,
-                <img className="w-12 h-12  sm:w-full sm:h-full" src="https://img.icons8.com/fluency/100/python.png" alt="python" />,
-                <img className="w-12 h-12  sm:w-full sm:h-full" src="https://img.icons8.com/color/100/kubernetes.png" alt="kubernetes" />,
+                <Image key="grafana" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/100/external-data-visualization-and-monitoring-with-support-for-graphite-and-influxdb-logo-color-tal-revivo.png" alt="grafana" width={48} height={48} unoptimized />,
+                <Image key="visual-studio" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/fluency/100/visual-studio.png" alt="visual-studio" width={48} height={48} unoptimized />,
+                <Image key="postman" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/100/external-postman-is-the-only-complete-api-development-environment-logo-color-tal-revivo.png" alt="postman" width={48} height={48} unoptimized />,
+                <Image key="nextjs" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/nolan/100/nextjs.png" alt="nextjs" width={48} height={48} unoptimized />,
+                <Image key="rabbitmq" className="w-12 h-16 sm:w-44 sm:h-44" src={rabbitMq.src} alt="rabbitmq" width={48} height={64} unoptimized />,
+                <Image key="python" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/fluency/100/python.png" alt="python" width={48} height={48} unoptimized />,
+                <Image key="kubernetes" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/color/100/kubernetes.png" alt="kubernetes" width={48} height={48} unoptimized />,
               ]}
             />
             <MarqueeComponent
@@ -324,14 +325,14 @@ const Page: FC<Props> = (props) => {
               gradientColor={gradientColor} // ✅ single string
               gradientWidth={250}
               icons={[
-                <img className="w-12 h-12  sm:w-full sm:h-full" src="https://img.icons8.com/color/100/css3.png" alt="css3" />,
-                <img className="w-12 h-12  sm:w-full sm:h-full" src="https://img.icons8.com/fluency/100/typescript--v2.png" alt="typescript--v2" />,
-                <img className="w-12 h-12  sm:w-full sm:h-full" src="https://img.icons8.com/color/100/tailwindcss.png" alt="tailwindcss" />,
-                <img className="w-12 h-12  sm:w-full sm:h-full" src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/100/external-redis-an-in-memory-data-structure-project-implementing-a-distributed-logo-shadow-tal-revivo.png" alt="redis" />,
-                <img className="w-12 h-12  sm:w-full sm:h-full" src="https://img.icons8.com/3d-fluency/94/github.png" alt="github" />,
-                <img className="w-12 h-12  sm:w-full sm:h-full" src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/100/external-docker-a-set-of-coupled-software-as-a-service-logo-color-tal-revivo.png" alt="docker" />,
-                <img className="w-12 h-12  sm:w-full sm:h-full" src="https://img.icons8.com/color/100/nodejs.png" alt="nodejs" />,
-                <img className="w-12 h-12  sm:w-full sm:h-full" src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/100/external-react-a-javascript-library-for-building-user-interfaces-logo-color-tal-revivo.png" alt="react" />
+                <Image key="css3" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/color/100/css3.png" alt="css3" width={48} height={48} unoptimized />,
+                <Image key="typescript" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/fluency/100/typescript--v2.png" alt="typescript" width={48} height={48} unoptimized />,
+                <Image key="tailwindcss" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/color/100/tailwindcss.png" alt="tailwindcss" width={48} height={48} unoptimized />,
+                <Image key="redis" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/100/external-redis-an-in-memory-data-structure-project-implementing-a-distributed-logo-shadow-tal-revivo.png" alt="redis" width={48} height={48} unoptimized />,
+                <Image key="github" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/3d-fluency/94/github.png" alt="github" width={48} height={48} unoptimized />,
+                <Image key="docker" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/100/external-docker-a-set-of-coupled-software-as-a-service-logo-color-tal-revivo.png" alt="docker" width={48} height={48} unoptimized />,
+                <Image key="nodejs" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/color/100/nodejs.png" alt="nodejs" width={48} height={48} unoptimized />,
+                <Image key="react" className="w-12 h-12 sm:w-full sm:h-full" src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/100/external-react-a-javascript-library-for-building-user-interfaces-logo-color-tal-revivo.png" alt="react" width={48} height={48} unoptimized />,
               ]}
             />
           </div>
@@ -355,13 +356,13 @@ const Page: FC<Props> = (props) => {
           >
             <div className="flex justify-center sm:justify-between items-center">
               <p className=" w-full p-4 sm:p-0 sm:w-[50%] text-xs sm:text-base font-Poppins">
-                <span className="text-yellow-500 text-lg">"</span> I'm a Full Stack Developer with 15 months of experience crafting scalable, high-performance web apps using the MERN stack, PostgreSQL, and MongoDB. I build sleek, responsive UIs with Next.js, React.js, Tailwind CSS, and MUI, and engineer secure, efficient backends with Node.js, Express.js, TypeScript & javascript, and both SQL & NoSQL databases.<br /><br />
+                <span className="text-yellow-500 text-lg">&quot;</span> I&apos;m a Full Stack Developer with 15 months of experience crafting scalable, high-performance web apps using the MERN stack, PostgreSQL, and MongoDB. I build sleek, responsive UIs with Next.js, React.js, Tailwind CSS, and MUI, and engineer secure, efficient backends with Node.js, Express.js, TypeScript &amp; javascript, and both SQL &amp; NoSQL databases.<br /><br />
 
-                From using distributed microservices architecture, Synchronoization using RabbitMQ, User Session managment ,Real-time features (SSE & socket.IO) to Role Based Access Control, and payment integrations till securing your app of vulnerabilities using encryptions, I’ve delivered full-stack solutions that perform in production. On the DevOps side, I handle CI/CD, Docker, and AWS deployments using Amplify, Cognito, S3, Secrets Manager, and more.<br /><br />
+                From using distributed microservices architecture, Synchronoization using RabbitMQ, User Session managment ,Real-time features (SSE &amp; socket.IO) to Role Based Access Control, and payment integrations till securing your app of vulnerabilities using encryptions, I&rsquo;ve delivered full-stack solutions that perform in production. On the DevOps side, I handle CI/CD, Docker, and AWS deployments using Amplify, Cognito, S3, Secrets Manager, and more.<br /><br />
 
-                I'm certified as an AWS Cloud Practitioner and Solutions Architect, and I'm fluent with tools like GitHub, Postman, Sonar, and Grafana.<span className="text-yellow-500 text-xl">"</span><br />
+                I&apos;m certified as an AWS Cloud Practitioner and Solutions Architect, and I&apos;m fluent with tools like GitHub, Postman, Sonar, and Grafana.<span className="text-yellow-500 text-xl">&quot;</span><br />
 
-                <br /><span className="text-yellow-500 text-sm sm:text-xl">My Motto: Discover, Develop, & Deploy </span>
+                <br /><span className="text-yellow-500 text-sm sm:text-xl">My Motto: Discover, Develop, &amp; Deploy </span>
                 <p className="block sm:hidden w-full text-start">- SHREYANSHI KUSHWAHA</p></p>
               <div className="w-[50%] hidden sm:block ">
                 <img src={women.src} className="w-full h-full">
@@ -375,7 +376,7 @@ const Page: FC<Props> = (props) => {
         <div className="w-full bg-neutral-50 dark:bg-black border-t-2">
           <section className=" pb-10 w-full" id="connect">
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className=" mt-6 text-xl sm:text-3xl font-bold mb-4 text-gray-800 dark:text-white">Let's Connect</h2>
+              <h2 className=" mt-6 text-xl sm:text-3xl font-bold mb-4 text-gray-800 dark:text-white">Let&apos;s Connect</h2>
               <p className="text-gray-600 dark:text-gray-50 mb-6 text-sm sm:text-xl">
                 Feel free to reach out through LinkedIn or send me an email!
               </p>
