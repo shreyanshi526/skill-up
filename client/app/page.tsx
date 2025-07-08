@@ -24,6 +24,7 @@ const Page: FC<Props> = (props) => {
   const { theme } = useTheme();
   const [particleColor, setParticleColor] = useState("#000000");
   useEffect(() => {
+    console.log('theme inside useEffect:', theme)
     if (theme === "dark") {
       setParticleColor("#ffffff"); // white in dark mode
     } else {
@@ -217,7 +218,8 @@ const Page: FC<Props> = (props) => {
   const [activeItem, setActiveItem] = useState(0);
   const [route, setRoute] = useState("Login")
   const title = "A Full Stack Developer"
-  const gradientColor = theme === "dark" ? "#000000" : "#fafafa";
+  console.log("Theme:", theme);
+  const gradientColor = theme === "dark" || "system" ? "#000000" : "#fafafa";
   return (
     <div>
       <Heading
@@ -267,8 +269,8 @@ const Page: FC<Props> = (props) => {
             {/* Radial mask overlay */}
             <div className="absolute inset-0 w-full h-full bg-neutral-50 dark:bg-black [mask-image:radial-gradient(300px_150px_at_top,transparent_20%,white)] md:[mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]" />
           </div>
-
         </div>
+
         {/* Middle Section - (Marquee effect)  */}
         <div className="flex flex-col lg:flex-row justify-between md:justify-around items-center w-[95%] bg-neutral-50 dark:bg-black rounded-3xl  py-5 px-4 sm:px-10 ">
           <div className="w-full lg:w-[30%] min-h-40 sm:min-h-64 max-h-full">
