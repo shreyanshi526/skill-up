@@ -12,10 +12,9 @@ import rabbitMq from './../assests/rabbitmq-logo.webp'
 import women from './../assests/women.png';
 import Image from 'next/image';
 import Button from "./components/reuseable/Button";
-import { Timeline } from "./components/ui/timeline";
+import TimeLineWrapper from "./components/wrappers/TimeLineWrapper";
 import ChipButton from "./components/ui/chips";
 import { ContainerScroll } from "./components/ui/container-scroll";
-import { Vortex } from "./components/ui/vortex";
 import { FaEnvelope, FaLinkedin } from "react-icons/fa";
 
 
@@ -212,7 +211,8 @@ const Page: FC<Props> = (props) => {
     title: 'Changelog from journey',
     description: `I have been working as a developer from over 1.5 years , here's a time line of my journey so far`
   }
-
+  const headingMemo = React.useMemo(() => heading, [heading]);
+  const dataMemo = React.useMemo(() => data, [data]);
   const [open, setOpen] = useState(false);
   const [activeItem, setActiveItem] = useState(0);
   const [route, setRoute] = useState("Login")
@@ -339,7 +339,7 @@ const Page: FC<Props> = (props) => {
         </div>
         {/* Experience section */}
         <div className="w-[95%] bg-neutral-50 dark:bg-black rounded-3xl  py-5 px-10">
-          <Timeline data={data} Heading={heading} />
+          <TimeLineWrapper data={dataMemo} Heading={headingMemo} />
         </div>
 
         {/* About Me section */}
