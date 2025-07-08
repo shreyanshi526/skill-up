@@ -1,11 +1,12 @@
 "use client";
+
 import {
-  useMotionValueEvent,
   useScroll,
   useTransform,
   motion,
 } from "motion/react";
 import React, { useEffect, useRef, useState } from "react";
+import { debounce } from "lodash";
 
 interface TimelineEntry {
   title: string;
@@ -13,21 +14,26 @@ interface TimelineEntry {
 }
 
 interface Heading {
-   title: string,
-   description : string 
+  title: string,
+  description: string
 }
 
-export const Timeline = ({ data,Heading }: { data: TimelineEntry[], Heading :Heading }) => {
+
+const Timeline = ({ data, Heading }: { data: TimelineEntry[], Heading: Heading }) => {
   const ref = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
 
   useEffect(() => {
-    if (ref.current) {
-      const rect = ref.current.getBoundingClientRect();
-      setHeight(rect.height);
-    }
-  }, [ref]);
+    if (!ref.current) return;
+    const observer = new ResizeObserver(debounce(entries => {
+      for (let entry of entries) {
+        setHeight(entry.contentRect.height);
+      }
+    }, 100)); // updates max every 100ms
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -92,3 +98,5 @@ export const Timeline = ({ data,Heading }: { data: TimelineEntry[], Heading :Hea
     </div>
   );
 };
+
+export default React.memo(Timeline);
