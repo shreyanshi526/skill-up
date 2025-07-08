@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SocketProvider } from './context/SocketContext';
 import { useState } from 'react';
 import { Provider } from 'react-redux';
-import { persistor, store } from './redux/store';  // You'll need to create this
+import { persistor, store } from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 
 const poppins = Poppins({
@@ -31,16 +31,26 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${poppins.variable} ${josefin.variable} !bg-white bg-no-repeat dark:bg-gradient-to-b dark:from-gray-900 dark:to-black duration-300`}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              document.documentElement.classList.add('dark');
+              document.body.style.backgroundColor = 'black';
+            `,
+          }}
+        />
+      </head>
+      <body className={`${poppins.variable} ${josefin.variable} bg-no-repeat duration-300`}>
         <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <SocketProvider>
-            <QueryClientProvider client={queryClient}>
-              <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+          <PersistGate loading={null} persistor={persistor}>
+            <SocketProvider>
+              <QueryClientProvider client={queryClient}>
+                <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
                   {children}
-              </ThemeProvider>
-            </QueryClientProvider>
-          </SocketProvider>
+                </ThemeProvider>
+              </QueryClientProvider>
+            </SocketProvider>
           </PersistGate>
         </Provider>
       </body>
