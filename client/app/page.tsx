@@ -23,15 +23,36 @@ interface Props { }
 const Page: FC<Props> = (props) => {
   const { theme } = useTheme();
   const [particleColor, setParticleColor] = useState("#000000");
-  useEffect(() => {
-    console.log('theme inside useEffect:', theme)
+  // Utility function to get color based on theme and type
+  const getColorByTheme = (
+    theme: string | undefined,
+    type: "particle" | "gradient"
+  ) => {
     if (theme === "dark") {
-      setParticleColor("#ffffff"); // white in dark mode
-    } else {
-      setParticleColor("#6366f1"); // black in light mode
+      return type === "particle" ? "#ffffff" : "#000000";
+    } else if (theme === "light") {
+      return type === "particle" ? "#6366f1" : "#fafafa";
+    } else if (theme === "system") {
+      if (typeof window !== "undefined" && window.matchMedia) {
+        const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        return type === "particle"
+          ? isDark
+            ? "#ffffff"
+            : "#6366f1"
+          : isDark
+          ? "#000000"
+          : "#fafafa";
+      }
     }
+    // Default fallback
+    return type === "particle" ? "#6366f1" : "#fafafa";
+  };
+
+  useEffect(() => {
+    setParticleColor(getColorByTheme(theme, "particle"));
   }, [theme]);
 
+  const gradientColor = getColorByTheme(theme, "gradient");
 
   const words = [
     {
@@ -218,8 +239,7 @@ const Page: FC<Props> = (props) => {
   const [activeItem, setActiveItem] = useState(0);
   const [route, setRoute] = useState("Login")
   const title = "A Full Stack Developer"
-  console.log("Theme:", theme);
-  const gradientColor = theme === "dark" || "system" ? "#000000" : "#fafafa";
+
   return (
     <div>
       <Heading
