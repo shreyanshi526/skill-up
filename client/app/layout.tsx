@@ -44,13 +44,11 @@ export default function RootLayout({
       <body className={`${poppins.variable} ${josefin.variable} bg-no-repeat duration-300`}>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
-            <SocketProvider>
               <QueryClientProvider client={queryClient}>
                 <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
                   {children}
                 </ThemeProvider>
               </QueryClientProvider>
-            </SocketProvider>
           </PersistGate>
         </Provider>
       </body>
