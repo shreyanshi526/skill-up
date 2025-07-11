@@ -4,7 +4,6 @@ import './globals.css';
 import { Poppins, Josefin_Sans } from 'next/font/google';
 import { ThemeProvider } from './utils/theme-provider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { SocketProvider } from './context/SocketContext';
 import { useState } from 'react';
 import { Provider } from 'react-redux';
 import { persistor, store } from './redux/store';
