@@ -306,7 +306,7 @@ const Page: FC<Props> = (props) => {
           <div className="w-full lg:w-[30%] min-h-40 sm:min-h-64 max-h-full">
             <TypewriterEffect words={words} />
             <div className=" text-black dark:text-white flex justify-self-auto gap-8 sm:gap-2 pt-6">
-              <Button label="See Resume" onClick={() => window.open('https://drive.google.com/file/d/1D5PsE2jwyTl4Qno-rukpxdkR2bumlLxb/view?usp=drive_link', '_blank')} width="w-28 sm:w-48" height="py-2" textSize=" text-xs sm:text-md" gradient="bg-gradient-to-r from-indigo-500 to-sky-500" />
+              <Button label="See Resume" onClick={() => window.open('https://drive.google.com/file/d/1mUS1In-VE_DyJnj8EfNURmvbx0qtSU5H/view?usp=drive_link', '_blank')} width="w-28 sm:w-48" height="py-2" textSize=" text-xs sm:text-md" gradient="bg-gradient-to-r from-indigo-500 to-sky-500" />
               <Button label="Contact Me" onClick={() => {
                 const section = document.getElementById('connect');
                 if (section) {
