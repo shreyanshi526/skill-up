@@ -40,8 +40,8 @@ const Page: FC<Props> = (props) => {
             ? "#ffffff"
             : "#6366f1"
           : isDark
-          ? "#000000"
-          : "#fafafa";
+            ? "#000000"
+            : "#fafafa";
       }
     }
     // Default fallback
@@ -125,12 +125,21 @@ const Page: FC<Props> = (props) => {
           </p>
           <ol className=" text-neutral-800 text-xs md:text-base dark:text-neutral-200">
             <li className="mb-2">
-              ◦ Backend : Working on Distributed system with multiple Microservices, handled synhcronisation using RabbitMq, implemented client-side
+              ◦<span className="underline text-bold"> Backend</span> : Working on Distributed system with multiple Microservices, handled synhcronisation using RabbitMq, implemented client-side
               field-level encryption on mongodb, managed user sessions using Refresh Tokens and Access tokens, and enhanced API security using Anti-forgery
               tokens.
             </li>
             <li>
-              ◦ Frontend : Optimized microservice API call structure for performance and version compatibility. Built a responsive
+              ◦ <span className="underline text-bold"> Performance tuning</span> : Engineered performance tuning mechanisms by leveraging Redis as a caching layer, optimizing
+              data retrieval processes with intelligent cache-or-DB fetch logic, resulting in reduced latency and improved system
+              scalability.
+            </li>
+            <li>
+              ◦ <span className="underline text-bold">Recommendation System</span> : Built a lightweight Recommendation Server using text embeddings to suggest
+              personalized milestones and next actions for users, enhancing platform engagement and usability.
+            </li>
+            <li>
+              ◦ <span className="underline text-bold">Frontend</span> : Optimized microservice API call structure for performance and version compatibility. Built a responsive
               admin panel, integrated secure image delivery via AWS CloudFront, and added payment gateway SDKs for
               seamless transactions.
             </li>
@@ -147,43 +156,7 @@ const Page: FC<Props> = (props) => {
             <ChipButton label="Tailwind" />
             <ChipButton label="Jest" />
             <ChipButton label="Grafana" />
-          </div>
-        </div>
-      ),
-    },
-    {
-      title: "Mid 2024",
-      content: (
-        <div>
-          <h3 className="text-sm underline underline-offset-4 font-normal text-neutral-800 md:text-xl dark:text-neutral-200">
-            Full Stack Developer At Starworks Prime
-          </h3>
-          <p className="mb-8 mt-1 text-xs font-normal text-neutral-800 md:text-base dark:text-neutral-200">
-            Worked as a Freelancer on ERP system for Incubators and accelerator.
-          </p>
-          <ol className=" text-neutral-800 text-xs md:text-base dark:text-neutral-200">
-            <li className="mb-2">
-              ◦ ERP Module Development: Built custom modules including Programs Library, Mentor-Startup Association,
-              and Startup Application Management using Node.js, TypeScript, SQL, and Hasura. Integrated real-time chat
-              using Server-Sent Events (SSE).
-            </li>
-            <li>
-              ◦ Access Control & Security: Implemented Role-Based Access Control (RBAC) to manage permissions for
-              startups, mentors, and incubator staff, ensuring secure and role-specific access.
-            </li>
-          </ol>
-          <div className="mt-3 sm:mt-4">
-            <ChipButton label="AWS Incognito" />
-            <ChipButton label="AWS Lambda" />
-            <ChipButton label="AWS S3" />
-            <ChipButton label="Load Balancer" />
-            <ChipButton label="Amplify" />
-            <ChipButton label="VueJS" />
-            <ChipButton label="Hasura" />
-            <ChipButton label="SQL" />
-            <ChipButton label="GraphQL" />
-            <ChipButton label="Server Sent Events" />
-            <ChipButton label="Push Notification" />
+            <ChipButton label="Redis" />
           </div>
         </div>
       ),
@@ -193,18 +166,18 @@ const Page: FC<Props> = (props) => {
       content: (
         <div>
           <h3 className="text-sm underline underline-offset-4 font-normal text-neutral-800 md:text-xl dark:text-neutral-200">
-            Junior Full Stack Developer At Varlyq Technologies
+            Full Stack Developer At Varlyq Technologies
           </h3>
           <p className="mb-8 mt-1 text-xs font-normal text-neutral-800 md:text-base dark:text-neutral-200">
             Delivered 2+ full-stack projects From development to deployment.
           </p>
           <ol className=" text-neutral-800 text-xs md:text-base dark:text-neutral-200">
             <li className="mb-2">
-              ◦ DevOps Execution: Managed DevOps tasks, including CI/CD automation, Deployments on Amplify, used
+              ◦<span className="underline text-bold"> DevOps Execution</span> : Managed DevOps tasks, including CI/CD automation, Deployments on Amplify, used
               AWS Cognito and Secrets Manager, and containerization using Docker to streamline company operations.
             </li>
             <li>
-              ◦ UX Optimization: Improved UX for 5+ websites, through responsive design and modern UI frameworks and
+              ◦<span className="underline text-bold"> UX Optimization</span> : Improved UX for 5+ websites, through responsive design and modern UI frameworks and
               libraries. Worked on state management using Redux
             </li>
           </ol>
@@ -223,6 +196,43 @@ const Page: FC<Props> = (props) => {
             <ChipButton label="Javascript" />
             <ChipButton label="Nginx" />
             <ChipButton label="proxy servers" />
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "Sep 23 - Dec 23",
+      content: (
+        <div>
+          <h3 className="text-sm underline underline-offset-4 font-normal text-neutral-800 md:text-xl dark:text-neutral-200">
+            Full Stack Developer At Starworks Prime
+          </h3>
+          <p className="mb-8 mt-1 text-xs font-normal text-neutral-800 md:text-base dark:text-neutral-200">
+            Worked on ERP system for Incubators and accelerator.
+          </p>
+          <ol className=" text-neutral-800 text-xs md:text-base dark:text-neutral-200">
+            <li className="mb-2">
+              ◦<span className="underline text-bold">ERP Module Development</span> : Built custom modules including Programs Library, Mentor-Startup Association,
+              and Startup Application Management using Node.js, TypeScript, SQL, and Hasura. Integrated real-time chat
+              using Server-Sent Events (SSE).
+            </li>
+            <li>
+              ◦<span className="underline text-bold"> Access Control & Security</span> : Implemented Role-Based Access Control (RBAC) to manage permissions for
+              startups, mentors, and incubator staff, ensuring secure and role-specific access.
+            </li>
+          </ol>
+          <div className="mt-3 sm:mt-4">
+            <ChipButton label="AWS Incognito" />
+            <ChipButton label="AWS Lambda" />
+            <ChipButton label="AWS S3" />
+            <ChipButton label="Load Balancer" />
+            <ChipButton label="Amplify" />
+            <ChipButton label="VueJS" />
+            <ChipButton label="Hasura" />
+            <ChipButton label="SQL" />
+            <ChipButton label="GraphQL" />
+            <ChipButton label="Server Sent Events" />
+            <ChipButton label="Push Notification" />
           </div>
         </div>
       ),
@@ -378,7 +388,7 @@ const Page: FC<Props> = (props) => {
           >
             <div className="flex justify-center sm:justify-between items-center">
               <p className=" w-full p-4 sm:p-0 sm:w-[50%] text-xs sm:text-base font-Poppins">
-                <span className="text-yellow-500 text-lg">&quot;</span> I&apos;m a Full Stack Developer with 15 months of experience crafting scalable, high-performance web apps using the MERN stack, PostgreSQL, and MongoDB. I build sleek, responsive UIs with Next.js, React.js, Tailwind CSS, and MUI, and engineer secure, efficient backends with Node.js, Express.js, TypeScript &amp; javascript, and both SQL &amp; NoSQL databases.<br /><br />
+                <span className="text-yellow-500 text-lg">&quot;</span> I&apos;m a Full Stack Developer with 2+ years of experience crafting scalable, high-performance web apps using the MERN stack, PostgreSQL, and MongoDB. I build sleek, responsive UIs with Next.js, React.js, Tailwind CSS, and MUI, and engineer secure, efficient backends with Node.js, Express.js, TypeScript &amp; javascript, and both SQL &amp; NoSQL databases.<br /><br />
 
                 From using distributed microservices architecture, Synchronoization using RabbitMQ, User Session managment ,Real-time features (SSE &amp; socket.IO) to Role Based Access Control, and payment integrations till securing your app of vulnerabilities using encryptions, I&rsquo;ve delivered full-stack solutions that perform in production. On the DevOps side, I handle CI/CD, Docker, and AWS deployments using Amplify, Cognito, S3, Secrets Manager, and more.<br /><br />
 
